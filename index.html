@@ -97,10 +97,21 @@
 
   /* ─── HERO ─── */
   .hero {
+    --hero-visual-size: min(1380px, 84vw);
     min-height: 100vh;
     padding: 140px 48px 80px;
     position: relative;
     overflow: hidden;
+    background-image:
+      linear-gradient(to bottom, rgba(8,8,8,0.18) 0%, rgba(8,8,8,0.02) 16%, rgba(8,8,8,0.08) 65%, rgba(8,8,8,0.86) 100%),
+      linear-gradient(90deg, #080808 0%, #080808 28%, rgba(8,8,8,0.96) 38%, rgba(8,8,8,0.74) 46%, rgba(8,8,8,0.32) 55%, rgba(8,8,8,0.08) 63%, transparent 72%),
+      linear-gradient(to top, #080808 0%, rgba(8,8,8,0.86) 10%, rgba(8,8,8,0.36) 23%, transparent 40%),
+      url("hero-truck.png"),
+      radial-gradient(circle at 76% 32%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 12%, transparent 34%),
+      linear-gradient(90deg, #080808 0%, #080808 34%, #0a0a0a 56%, #070707 100%);
+    background-repeat: no-repeat;
+    background-position: center, center, center, right -190px center, center, center;
+    background-size: auto, auto, auto, var(--hero-visual-size), auto, auto;
   }
   .hero-grid-bg {
     position: absolute; inset: 0;
@@ -112,16 +123,15 @@
   }
   .hero-gradient-motion {
     position: absolute;
-    inset: -28%;
+    inset: -18%;
     background:
-      radial-gradient(circle at 18% 35%, rgba(250,204,21,0.18) 0%, transparent 26%),
-      radial-gradient(circle at 78% 22%, rgba(253,224,71,0.13) 0%, transparent 24%),
-      radial-gradient(circle at 64% 76%, rgba(234,179,8,0.14) 0%, transparent 28%),
-      radial-gradient(circle at 30% 80%, rgba(250,204,21,0.10) 0%, transparent 26%);
-    filter: blur(38px);
-    opacity: 0.88;
+      radial-gradient(circle at 11% 30%, rgba(250,204,21,0.10) 0%, transparent 18%),
+      radial-gradient(circle at 84% 30%, rgba(253,224,71,0.08) 0%, transparent 20%),
+      radial-gradient(circle at 68% 67%, rgba(234,179,8,0.08) 0%, transparent 24%);
+    filter: blur(42px);
+    opacity: 0.46;
     transform: translate3d(0,0,0) scale(1);
-    animation: hero-gradient-drift 18s ease-in-out infinite alternate;
+    animation: hero-gradient-drift 20s ease-in-out infinite alternate;
     mix-blend-mode: screen;
     will-change: transform, opacity;
   }
@@ -132,79 +142,36 @@
     100% { transform: translate3d(5%, -3%, 0) scale(1.12) rotate(1deg); opacity: 0.96; }
   }
   .hero-glow {
-    position: absolute; width: 640px; height: 640px;
-    background: radial-gradient(circle, rgba(250,204,21,0.1) 0%, transparent 70%);
-    top: 5%; right: -80px; animation: hero-glow-drift-1 16s ease-in-out infinite alternate;
+    position: absolute; width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba(250,204,21,0.09) 0%, transparent 70%);
+    top: 0; right: -130px; animation: hero-glow-drift-1 18s ease-in-out infinite alternate;
     will-change: transform, opacity;
+    opacity: .66;
   }
   .hero-glow2 {
     position: absolute; width: 420px; height: 420px;
-    background: radial-gradient(circle, rgba(234,179,8,0.07) 0%, transparent 70%);
-    bottom: 5%; left: -60px; animation: hero-glow-drift-2 20s ease-in-out infinite alternate;
+    background: radial-gradient(circle, rgba(234,179,8,0.05) 0%, transparent 70%);
+    bottom: -20px; left: -70px; animation: hero-glow-drift-2 22s ease-in-out infinite alternate;
     will-change: transform, opacity;
+    opacity: .48;
   }
   .hero-inner {
     position: relative;
     z-index: 1;
     min-height: calc(100vh - 220px);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
   }
   .hero-copy {
     position: relative;
     z-index: 3;
-    max-width: 560px;
-    padding-bottom: 12px;
+    max-width: 640px;
+    padding-bottom: 0;
   }
-  .hero-art {
-    position: absolute;
-    inset: 20px -120px -10px auto;
-    width: min(1120px, 76vw);
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
-    opacity: 0.96;
-  }
-  .hero-art::after {
-    content: '';
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 34%;
-    background: linear-gradient(to bottom, rgba(10,10,10,0) 0%, rgba(10,10,10,0.35) 45%, var(--bg) 100%);
-    pointer-events: none;
-    z-index: 4;
-  }
-  .truck-scene {
-    position: relative;
-    width: 100%;
-    opacity: 0;
-    transform: translateX(240px) scale(1.02);
-    animation: truck-enter 1.45s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
-    will-change: transform, opacity;
-    filter: saturate(1.02);
-  }
-  .truck-img {
-    display: block;
-    width: 100%;
-    height: auto;
-    transform: scale(1.08);
-    transform-origin: center center;
-    filter: drop-shadow(0 32px 90px rgba(0,0,0,0.58));
-  }
-  .truck-impact {
-    position: absolute;
-    right: 10%;
-    top: 35%;
-    width: 190px;
-    height: 190px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(250,204,21,0.4) 0%, rgba(250,204,21,0.14) 38%, transparent 70%);
-    filter: blur(18px);
-    opacity: 0;
-    mix-blend-mode: screen;
-    animation: impact-flash 0.5s ease-out 1.85s forwards;
-  }
+  .hero-art { display: none; }
+  .hero-art::before, .hero-art::after, .truck-scene, .truck-img, .truck-impact { display: none; }
   .truck-bubble {
+    display: none;
     position: absolute;
     top: 9%;
     right: 4%;
@@ -244,9 +211,8 @@
     0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.35; }
     100% { transform: translate3d(24px, -18px, 0) scale(1.1); opacity: 0.68; }
   }
-  @keyframes truck-enter {
-    0% { opacity: 0; transform: translateX(260px) scale(1.02); }
-    65% { opacity: 1; transform: translateX(-18px) scale(1.04); }
+  @keyframes scene-enter {
+    0% { opacity: 0; transform: translateX(64px) scale(1.06); }
     100% { opacity: 1; transform: translateX(0) scale(1); }
   }
   @keyframes impact-flash {
@@ -274,22 +240,22 @@
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
   .hero-title {
     font-family: var(--font-display); font-weight: 900;
-    font-size: clamp(40px, 7vw, 96px);
-    line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 32px;
-    opacity: 0; animation: fade-up 0.9s 0.4s forwards;
+    font-size: clamp(48px, 7.8vw, 108px);
+    line-height: 0.92; letter-spacing: -0.032em; margin-bottom: 22px;
+    opacity: 0; animation: fade-up 0.9s 0.28s forwards;
   }
   .hero-title .line2 {
     color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2);
   }
   .hero-title .accent { color: var(--accent); }
   .hero-sub {
-    max-width: 560px; color: var(--muted); font-size: 17px;
-    font-weight: 400; line-height: 1.75; margin-bottom: 52px;
-    opacity: 0; animation: fade-up 0.9s 0.6s forwards;
+    max-width: 560px; color: #6e6e78; font-size: 17px;
+    font-weight: 400; line-height: 1.72; margin-bottom: 44px;
+    opacity: 0; animation: fade-up 0.9s 0.45s forwards;
   }
   .hero-actions {
     display: flex; gap: 16px; align-items: center;
-    opacity: 0; animation: fade-up 0.9s 0.8s forwards;
+    opacity: 0; animation: fade-up 0.9s 0.62s forwards;
   }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 10px;
@@ -316,13 +282,13 @@
   .btn-secondary:hover { gap: 16px; }
 
   .hero-stats {
-    display: flex; gap: 64px; margin-top: 80px;
-    padding-top: 40px; border-top: 1px solid var(--border);
-    opacity: 0; animation: fade-up 0.9s 1s forwards;
+    display: flex; gap: 56px; margin-top: 64px;
+    padding-top: 34px; border-top: 1px solid rgba(255,255,255,0.08);
+    opacity: 0; animation: fade-up 0.9s 0.78s forwards;
   }
   .hero-stat-num {
-    font-family: var(--font-display); font-weight: 900; font-size: 36px;
-    color: var(--accent); display: block; line-height: 1; margin-bottom: 6px;
+    font-family: var(--font-display); font-weight: 900; font-size: 38px;
+    color: var(--accent); display: block; line-height: 1; margin-bottom: 7px;
   }
   .hero-stat-label { color: var(--muted); font-size: 13px; font-weight: 500; }
 
@@ -724,12 +690,12 @@
     .nav-links { display: none; }
     .nav-burger { display: flex; }
     section { padding: 80px 24px; }
-    .hero { padding: 120px 24px 60px; }
-    .hero-inner { min-height: auto; display: block; padding-bottom: 320px; }
+    .hero { --hero-visual-size: min(1180px, 112vw); padding: 120px 24px 60px; background-position: center, center, center, right -120px bottom -6px, center, center; }
+    .hero-inner { min-height: auto; display: block; padding-bottom: 360px; }
     .hero-copy { max-width: 100%; }
-    .hero-art { inset: auto -60px -40px auto; width: min(920px, 100vw); }
-    .truck-scene { width: 100%; }
-    .truck-bubble { top: 6%; right: 3%; max-width: 220px; }
+    .hero-art { display: none; }
+    .truck-scene { display: none; }
+    .truck-bubble { display: none; }
     .services-grid, .strategy-grid { grid-template-columns: 1fr 1fr; }
     .results-grid { grid-template-columns: 1fr; }
     .result-card.big { grid-column: span 1; }
@@ -745,12 +711,13 @@
   }
   @media (max-width: 640px) {
     .services-grid, .how-steps, .package-grid, .scenarios-grid, .strategy-grid, .form-row { grid-template-columns: 1fr; }
-    .hero-title { font-size: 38px; }
+    .hero-title { font-size: 44px; line-height: .94; }
     .result-val { font-size: 38px; }
     .hero-stats { gap: 28px; }
     .hero-actions { flex-wrap: wrap; }
-    .hero-inner { padding-bottom: 200px; }
-    .hero-art { inset: auto -80px -34px auto; width: 145vw; max-width: none; opacity: 0.82; }
+    .hero { --hero-visual-size: 155vw; background-position: center, center, center, right -110px bottom -14px, center, center; }
+    .hero-inner { padding-bottom: 150px; }
+    .hero-art { display: none; }
     .truck-bubble {
       top: 8%;
       right: 4%;
@@ -819,11 +786,6 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        Открыт к проектам · Москва / Удалённо
-      </div>
-
       <h1 class="hero-title">
         Во всём<br>
         <span class="line2">виноват</span><br>
