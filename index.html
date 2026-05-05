@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Во всём виноват маркетинг — ROMI-аудит, стратегия и growth</title>
+<meta name="description" content="Маркетинговая диагностика, ROMI-аудит, стратегия роста и performance-запуск для B2B, IT, телекома и сервисных компаний.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --bg2: #0f0f0f;
+    --accent: #facc15;
+    --accent2: #fde047;
+    --accent-dim: rgba(250,204,21,0.13);
+    --accent-border: rgba(250,204,21,0.28);
+    --white: #f0f0f0;
+    --muted: #636370;
+    --muted2: #444450;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.03);
+    --font-display: 'Unbounded', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* noise */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.022; pointer-events: none; z-index: 9999;
+  }
+
+  /* ─── CURSOR ─── */
+  #cursor {
+    width: 8px; height: 8px;
+    background: var(--accent); border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 10000;
+    transition: transform 0.15s ease, opacity 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(250,204,21,0.35); border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 10000;
+    transition: transform 0.35s ease, width 0.3s, height 0.3s, opacity 0.3s, border-color 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  @media (pointer: coarse) { #cursor, #cursor-ring { display: none; } }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(18px);
+    background: rgba(8,8,8,0.65);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.4s;
+  }
+  nav.scrolled { padding: 12px 48px; }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 900; font-size: 12px;
+    letter-spacing: 0.09em; color: var(--accent); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    font-weight: 500; letter-spacing: 0.04em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--accent); color: #080808;
+    font-family: var(--font-display); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.08em; padding: 10px 22px; border-radius: 4px;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(250,204,21,0.28); }
+  .nav-burger {
+    display: none; background: none; border: 1px solid var(--border);
+    color: var(--white); padding: 8px 14px; border-radius: 4px; cursor: pointer;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
+  .hero-gradient-motion {
+    position: absolute;
+    inset: -28%;
+    background:
+      radial-gradient(circle at 18% 35%, rgba(250,204,21,0.18) 0%, transparent 26%),
+      radial-gradient(circle at 78% 22%, rgba(253,224,71,0.13) 0%, transparent 24%),
+      radial-gradient(circle at 64% 76%, rgba(234,179,8,0.14) 0%, transparent 28%),
+      radial-gradient(circle at 30% 80%, rgba(250,204,21,0.10) 0%, transparent 26%);
+    filter: blur(38px);
+    opacity: 0.88;
+    transform: translate3d(0,0,0) scale(1);
+    animation: hero-gradient-drift 18s ease-in-out infinite alternate;
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+  }
+  @keyframes hero-gradient-drift {
+    0% { transform: translate3d(-3%, -2%, 0) scale(1); opacity: 0.62; }
+    35% { transform: translate3d(4%, 3%, 0) scale(1.08) rotate(2deg); opacity: 0.92; }
+    70% { transform: translate3d(-1%, 6%, 0) scale(0.98) rotate(-2deg); opacity: 0.76; }
+    100% { transform: translate3d(5%, -3%, 0) scale(1.12) rotate(1deg); opacity: 0.96; }
+  }
+  .hero-glow {
+    position: absolute; width: 640px; height: 640px;
+    background: radial-gradient(circle, rgba(250,204,21,0.1) 0%, transparent 70%);
+    top: 5%; right: -80px; animation: hero-glow-drift-1 16s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+  }
+  .hero-glow2 {
+    position: absolute; width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(234,179,8,0.07) 0%, transparent 70%);
+    bottom: 5%; left: -60px; animation: hero-glow-drift-2 20s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 560px) minmax(380px, 1fr);
+    gap: 52px;
+    align-items: end;
+    min-height: calc(100vh - 220px);
+  }
+  .hero-copy { max-width: 560px; }
+  .hero-art {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    min-height: 560px;
+    overflow: visible;
+  }
+  .truck-scene {
+    position: relative;
+    width: min(760px, 100%);
+    opacity: 0;
+    transform: translateX(240px) scale(0.92);
+    animation: truck-enter 1.45s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
+    will-change: transform, opacity;
+  }
+  .truck-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 28px 70px rgba(0,0,0,0.55));
+  }
+  .truck-impact {
+    position: absolute;
+    right: 10%;
+    top: 35%;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(250,204,21,0.4) 0%, rgba(250,204,21,0.14) 38%, transparent 70%);
+    filter: blur(18px);
+    opacity: 0;
+    mix-blend-mode: screen;
+    animation: impact-flash 0.5s ease-out 1.85s forwards;
+  }
+  .truck-bubble {
+    position: absolute;
+    top: 7%;
+    right: 4%;
+    max-width: 250px;
+    padding: 38px 28px 34px;
+    background: var(--accent);
+    color: #080808;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(13px, 1.15vw, 18px);
+    line-height: 1.08;
+    text-transform: uppercase;
+    text-align: center;
+    clip-path: polygon(50% 0%, 58% 7%, 70% 3%, 75% 11%, 90% 8%, 87% 20%, 100% 26%, 91% 37%, 100% 50%, 88% 57%, 96% 71%, 82% 74%, 84% 89%, 68% 86%, 62% 100%, 50% 92%, 37% 100%, 32% 88%, 17% 91%, 19% 77%, 4% 73%, 13% 59%, 0% 50%, 10% 39%, 1% 25%, 15% 20%, 11% 8%, 27% 11%, 31% 2%, 43% 8%);
+    box-shadow: 0 24px 64px rgba(250,204,21,0.30);
+    transform: translateY(-12px) scale(0.4) rotate(-7deg);
+    transform-origin: bottom left;
+    opacity: 0;
+    animation: bubble-pop 0.72s cubic-bezier(0.16, 1.25, 0.3, 1) 1.95s forwards;
+  }
+  .truck-bubble::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    bottom: 7%;
+    width: 38px;
+    height: 20px;
+    background: var(--accent);
+    clip-path: polygon(0 0, 100% 24%, 44% 100%);
+    transform: rotate(18deg);
+  }
+  @keyframes hero-glow-drift-1 {
+    0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
+    100% { transform: translate3d(-28px, 24px, 0) scale(1.08); opacity: 0.8; }
+  }
+  @keyframes hero-glow-drift-2 {
+    0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.35; }
+    100% { transform: translate3d(24px, -18px, 0) scale(1.1); opacity: 0.68; }
+  }
+  @keyframes truck-enter {
+    0% { opacity: 0; transform: translateX(240px) scale(0.92); }
+    65% { opacity: 1; transform: translateX(-20px) scale(1.01); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes impact-flash {
+    0% { opacity: 0; transform: scale(0.45); }
+    40% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.4); }
+  }
+  @keyframes bubble-pop {
+    0% { opacity: 0; transform: translateY(-12px) scale(0.4) rotate(-7deg); }
+    75% { opacity: 1; transform: translateY(0) scale(1.06) rotate(-2deg); }
+    100% { opacity: 1; transform: translateY(0) scale(1) rotate(-3deg); }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    color: var(--accent); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 36px; width: fit-content;
+    opacity: 0; animation: fade-up 0.8s 0.2s forwards;
+  }
+  .hero-badge .dot {
+    width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .hero-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 32px;
+    opacity: 0; animation: fade-up 0.9s 0.4s forwards;
+  }
+  .hero-title .line2 {
+    color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+  }
+  .hero-title .accent { color: var(--accent); }
+  .hero-sub {
+    max-width: 560px; color: var(--muted); font-size: 17px;
+    font-weight: 400; line-height: 1.75; margin-bottom: 52px;
+    opacity: 0; animation: fade-up 0.9s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    opacity: 0; animation: fade-up 0.9s 0.8s forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #080808;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.07em; padding: 16px 32px; border-radius: 4px;
+    text-decoration: none; transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(250,204,21,0.3); }
+  .btn-primary:hover::after { opacity: 1; }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--white); font-size: 14px; font-weight: 500;
+    text-decoration: none; padding: 16px 0;
+    transition: gap 0.25s; border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .btn-secondary:hover { gap: 16px; }
+
+  .hero-stats {
+    display: flex; gap: 64px; margin-top: 80px;
+    padding-top: 40px; border-top: 1px solid var(--border);
+    opacity: 0; animation: fade-up 0.9s 1s forwards;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display); font-weight: 900; font-size: 36px;
+    color: var(--accent); display: block; line-height: 1; margin-bottom: 6px;
+  }
+  .hero-stat-label { color: var(--muted); font-size: 13px; font-weight: 500; }
+
+  @keyframes fade-up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ─── MARQUEE ─── */
+  .marquee-wrap {
+    background: var(--accent); padding: 13px 0; overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 0; white-space: nowrap;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 20px;
+    font-family: var(--font-display); font-weight: 700; font-size: 10px;
+    letter-spacing: 0.13em; text-transform: uppercase; color: #080808; padding: 0 24px;
+  }
+  .marquee-sep { opacity: 0.35; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 120px 48px; }
+  .section-label {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(28px, 4vw, 54px);
+    line-height: 1.02; letter-spacing: -0.025em; margin-bottom: 20px;
+  }
+  .section-sub { color: var(--muted); font-size: 16px; max-width: 520px; line-height: 1.75; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── SERVICES / SKILLS ─── */
+  .services { background: var(--bg2); }
+  .services-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    margin-bottom: 72px; align-items: end;
+  }
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+
+  .service-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px 36px; position: relative; overflow: hidden;
+    transition: border-color 0.3s, background 0.3s; cursor: default;
+  }
+  .service-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--accent); transition: width 0.4s ease;
+  }
+  .service-card:hover { border-color: var(--accent-border); background: rgba(250,204,21,0.03); }
+  .service-card:hover::before { width: 100%; }
+
+  .service-num {
+    font-family: var(--font-display); font-size: 11px; color: var(--muted);
+    font-weight: 700; letter-spacing: 0.1em; margin-bottom: 28px;
+  }
+  .service-icon {
+    font-size: 30px; margin-bottom: 20px; display: block; transition: transform 0.3s;
+  }
+  .service-card:hover .service-icon { transform: scale(1.14) rotate(-4deg); }
+
+  .service-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    letter-spacing: -0.01em; margin-bottom: 14px; line-height: 1.25;
+  }
+  .service-desc { color: var(--muted); font-size: 14px; line-height: 1.65; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .service-tag {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--muted); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.05em; padding: 4px 10px; border-radius: 3px;
+  }
+
+  /* ─── RESULTS ─── */
+  .results-grid {
+    display: grid; grid-template-columns: repeat(2,1fr);
+    gap: 2px; margin-top: 72px;
+  }
+  .result-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 48px; display: flex; gap: 32px; align-items: flex-start;
+    transition: background 0.3s;
+  }
+  .result-card:hover { background: rgba(255,255,255,0.05); }
+  .result-card.big {
+    grid-column: span 2;
+    background: rgba(250,204,21,0.04); border-color: var(--accent-border);
+  }
+  .result-val {
+    font-family: var(--font-display); font-weight: 900; font-size: 52px;
+    color: var(--accent); line-height: 1; flex-shrink: 0; letter-spacing: -0.03em;
+  }
+  .result-info-label {
+    font-family: var(--font-display); font-weight: 700; font-size: 14px; margin-bottom: 8px;
+  }
+  .result-info-desc { color: var(--muted); font-size: 14px; line-height: 1.65; }
+  .result-source {
+    margin-top: 12px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; color: rgba(250,204,21,0.5);
+  }
+
+  /* ─── HOW / PROCESS ─── */
+  .how { background: var(--bg2); }
+  .how-steps {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 2px; margin-top: 72px;
+  }
+  .step {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px 32px; position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .step:hover { border-color: var(--accent-border); }
+  .step-num {
+    font-family: var(--font-display); font-weight: 900; font-size: 80px;
+    color: rgba(250,204,21,0.06); line-height: 1;
+    position: absolute; top: 12px; right: 16px;
+  }
+  .step-title {
+    font-family: var(--font-display); font-weight: 700; font-size: 14px;
+    margin-bottom: 12px; margin-top: 8px; position: relative;
+  }
+  .step-desc { color: var(--muted); font-size: 14px; line-height: 1.65; position: relative; }
+  .step-tag {
+    display: inline-block; margin-top: 20px;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    color: var(--accent); font-family: var(--font-display);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 10px; border-radius: 3px; position: relative;
+  }
+
+  /* ─── AUDIT / DIAGNOSTIC ─── */
+  .audit-section { background: var(--bg); }
+  .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 72px; }
+  .audit-col { background: var(--card); border: 1px solid var(--border); padding: 40px; }
+  .audit-col-title {
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 18px;
+    border-radius: 3px; margin-bottom: 28px; display: inline-block;
+  }
+  .audit-col-title.check { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+  .check-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; line-height: 1.5; transition: color 0.2s;
+  }
+  .check-row:last-child { border-bottom: none; }
+  .check-row:hover { color: var(--white); }
+  .check-row::before { content: '✓'; color: var(--accent); font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+
+  .audit-note {
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    border-radius: 4px; padding: 28px; margin-top: 2px;
+  }
+  .audit-note-title {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    color: var(--accent); margin-bottom: 10px;
+  }
+  .audit-note p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+  /* ─── METRICS ─── */
+  .metrics-section { background: var(--bg2); }
+  .metric-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 48px; position: relative; z-index: 10; }
+  .metric-btn {
+    position: relative; padding: 11px 20px;
+    border: 1px solid var(--accent-border); background: var(--accent-dim);
+    color: var(--accent2); border-radius: 3px; font-weight: 700; font-size: 14px;
+    cursor: pointer; transition: all 0.22s;
+    font-family: var(--font-display); letter-spacing: 0.02em; z-index: 1;
+  }
+  .metric-btn:hover, .metric-btn:focus-visible {
+    background: var(--accent); color: #080808; border-color: var(--accent);
+    transform: translateY(-3px); box-shadow: 0 10px 32px rgba(250,204,21,0.28);
+    outline: none; z-index: 100;
+  }
+  .tooltip {
+    pointer-events: none; position: absolute;
+    left: 50%; top: calc(100% + 12px); width: 272px;
+    transform: translateX(-50%) translateY(8px); opacity: 0;
+    transition: opacity 0.28s, transform 0.28s;
+    background: rgba(8,8,8,0.98); color: #d4d4d4;
+    border: 1px solid var(--accent-border); border-radius: 6px; padding: 18px;
+    font-size: 13px; font-weight: 400; font-family: var(--font-body);
+    box-shadow: 0 28px 72px rgba(0,0,0,0.7); text-align: left; z-index: 1000;
+  }
+  .tooltip::before {
+    content: ''; position: absolute; top: -7px; left: 50%;
+    width: 13px; height: 13px; transform: translateX(-50%) rotate(45deg);
+    background: rgba(8,8,8,0.98); border-top: 1px solid var(--accent-border);
+    border-left: 1px solid var(--accent-border);
+  }
+  .tooltip strong { display: block; color: var(--accent2); margin-bottom: 6px; font-family: var(--font-display); font-size: 12px; }
+  .metric-btn:hover .tooltip, .metric-btn:focus-visible .tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .scenarios-grid {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 2px; margin-top: 48px; position: relative; z-index: 1;
+  }
+  .scenario-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 32px; position: relative; overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .scenario-card:hover { border-color: var(--accent-border); background: rgba(250,204,21,0.03); }
+  .scenario-card .sc-num {
+    font-family: var(--font-display); font-size: 60px; font-weight: 900;
+    color: rgba(250,204,21,0.06); position: absolute; top: 8px; right: 16px; line-height: 1;
+  }
+  .scenario-card h3 { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 10px; position: relative; }
+  .scenario-card p { font-size: 14px; color: var(--muted); line-height: 1.6; position: relative; }
+
+  /* ─── PACKAGES / PRICING ─── */
+  .pricing-section { background: var(--bg); }
+  .package-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 72px; }
+  .package-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px 32px; display: flex; flex-direction: column;
+    position: relative; overflow: hidden; transition: border-color 0.3s, background 0.3s;
+  }
+  .package-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--accent); transition: width 0.4s ease;
+  }
+  .package-card:hover { border-color: var(--accent-border); background: rgba(250,204,21,0.03); }
+  .package-card:hover::before { width: 100%; }
+  .package-card.featured {
+    background: var(--accent); color: #080808; border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .package-card.featured:hover { background: var(--accent2); }
+  .package-card.featured::before { display: none; }
+
+  .pkg-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: #080808; color: var(--accent);
+    font-family: var(--font-display); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 2px;
+  }
+  .pkg-tier {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .package-card.featured .pkg-tier { color: rgba(8,8,8,0.55); }
+  .pkg-name { font-family: var(--font-display); font-weight: 700; font-size: 15px; line-height: 1.25; margin-bottom: 20px; }
+  .pkg-price { font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 1; margin-bottom: 14px; color: var(--accent); }
+  .package-card.featured .pkg-price { color: #080808; }
+  .pkg-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.55; flex-grow: 1; min-height: 60px; }
+  .package-card.featured .pkg-desc { color: rgba(8,8,8,0.65); }
+  .pkg-features { list-style: none; display: grid; gap: 9px; font-size: 13px; margin-bottom: 28px; }
+  .pkg-features li { display: flex; gap: 8px; align-items: flex-start; }
+  .pkg-features li::before { content: '—'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
+  .package-card.featured .pkg-features li::before { color: #080808; }
+  .pkg-btn {
+    display: block; text-align: center; text-decoration: none;
+    font-family: var(--font-display); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.08em; padding: 14px; border-radius: 3px; margin-top: auto;
+    transition: all 0.22s;
+  }
+  .pkg-btn-outline {
+    border: 1px solid var(--accent-border); color: var(--accent); background: transparent;
+  }
+  .pkg-btn-outline:hover { background: var(--accent); color: #080808; border-color: var(--accent); }
+  .pkg-btn-dark { background: #080808; color: var(--accent); border: 1px solid rgba(8,8,8,0.3); }
+  .pkg-btn-dark:hover { background: rgba(8,8,8,0.85); }
+  .price-note { margin-top: 28px; font-size: 13px; color: var(--muted2); text-align: center; }
+
+  /* ─── STRATEGY ─── */
+  .strategy-section { background: var(--bg); }
+  .strategy-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 72px; }
+  .strategy-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px 32px; position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .strategy-card:hover { border-color: var(--accent-border); }
+  .strategy-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--accent); transition: width 0.4s ease;
+  }
+  .strategy-card:hover::before { width: 100%; }
+  .strategy-period {
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+  }
+  .strategy-bg-num {
+    font-family: var(--font-display); font-size: 80px; font-weight: 900;
+    color: rgba(250,204,21,0.05); position: absolute; bottom: 8px; right: 16px; line-height: 1;
+  }
+  .strategy-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin-bottom: 14px; position: relative; }
+  .strategy-card p { color: var(--muted); font-size: 14px; line-height: 1.65; position: relative; }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: var(--accent); padding: 120px 48px;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23000000' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .cta-inner { position: relative; max-width: 820px; }
+  .cta-title {
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(34px, 5vw, 72px); color: #080808;
+    line-height: 1; letter-spacing: -0.03em; margin-bottom: 24px;
+  }
+  .cta-desc { color: rgba(8,8,8,0.6); font-size: 18px; margin-bottom: 48px; max-width: 540px; }
+  .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #080808; color: var(--accent);
+    font-family: var(--font-display); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.07em; padding: 18px 36px; border-radius: 4px;
+    text-decoration: none; transition: transform 0.22s, box-shadow 0.22s;
+  }
+  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.25); }
+  .cta-btn-ghost {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: #080808;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.07em; padding: 18px 36px; border-radius: 4px;
+    text-decoration: none; border: 2px solid rgba(8,8,8,0.25);
+    transition: border-color 0.22s, background 0.22s;
+  }
+  .cta-btn-ghost:hover { background: rgba(8,8,8,0.07); border-color: rgba(8,8,8,0.4); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 48px; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo { font-family: var(--font-display); font-weight: 900; font-size: 13px; color: var(--accent); }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy { color: var(--muted); font-size: 13px; }
+
+  /* ─── CONTACTS FORM ─── */
+  .contacts-section { background: var(--bg2); }
+  .contact-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2px; margin-top: 72px; }
+  .contact-info { background: var(--card); border: 1px solid var(--border); padding: 48px; }
+  .contact-info h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin-bottom: 12px; }
+  .contact-info p { color: var(--muted); font-size: 15px; line-height: 1.65; margin-bottom: 32px; }
+  .contact-links { display: grid; gap: 2px; }
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg); border: 1px solid var(--border); padding: 18px 20px;
+    text-decoration: none; color: var(--white); font-size: 14px; font-weight: 600;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .contact-link:hover { border-color: var(--accent-border); background: rgba(250,204,21,0.04); }
+  .contact-link span { color: var(--muted); font-size: 12px; }
+
+  .lead-form { background: var(--card); border: 1px solid var(--border); padding: 48px; display: grid; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .lead-form label { display: grid; gap: 8px; font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .lead-form input, .lead-form select, .lead-form textarea {
+    width: 100%; color: var(--white); border: 1px solid var(--border);
+    background: var(--bg); padding: 14px 16px; outline: none; border-radius: 2px;
+    font-family: var(--font-body); font-size: 14px;
+    transition: border-color 0.22s, box-shadow 0.22s;
+  }
+  .lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus {
+    border-color: var(--accent); box-shadow: 0 0 0 3px rgba(250,204,21,0.1);
+  }
+  .lead-form textarea { min-height: 110px; resize: vertical; }
+  .lead-form select option { background: #141414; }
+  .form-submit {
+    background: var(--accent); color: #080808; border: none; padding: 18px;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.08em; cursor: pointer; border-radius: 2px;
+    transition: all 0.22s; box-shadow: 0 6px 28px rgba(250,204,21,0.22);
+  }
+  .form-submit:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(250,204,21,0.32); }
+  .form-note { font-size: 12px; color: var(--muted2); text-align: center; }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-gradient-motion, .hero-glow, .hero-glow2, .marquee-track, .hero-badge .dot,
+    .truck-scene, .truck-impact, .truck-bubble { animation: none !important; }
+    .truck-scene, .truck-impact, .truck-bubble { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    nav { padding: 16px 24px; }
+    nav.scrolled { padding: 10px 24px; }
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+    section { padding: 80px 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; min-height: auto; }
+    .hero-copy { max-width: 100%; }
+    .hero-art { min-height: 0; justify-content: center; }
+    .truck-scene { width: min(760px, 100%); }
+    .truck-bubble { top: 4%; right: 3%; max-width: 220px; }
+    .services-grid, .strategy-grid { grid-template-columns: 1fr 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .result-card.big { grid-column: span 1; }
+    .how-steps { grid-template-columns: repeat(2,1fr); }
+    .gap-wrap, .contact-wrap { grid-template-columns: 1fr; }
+    .hero-stats { gap: 32px; flex-wrap: wrap; }
+    .services-header { grid-template-columns: 1fr; }
+    .package-grid { grid-template-columns: 1fr 1fr; }
+    .scenarios-grid { grid-template-columns: 1fr 1fr; }
+    .audit-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 640px) {
+    .services-grid, .how-steps, .package-grid, .scenarios-grid, .strategy-grid, .form-row { grid-template-columns: 1fr; }
+    .hero-title { font-size: 38px; }
+    .result-val { font-size: 38px; }
+    .hero-stats { gap: 28px; }
+    .hero-actions { flex-wrap: wrap; }
+    .truck-bubble {
+      top: 2%;
+      right: 1%;
+      max-width: 165px;
+      padding: 24px 18px 22px;
+      font-size: 10px;
+    }
+    .truck-impact { width: 110px; height: 110px; right: 11%; top: 36%; }
+  }
+
+  /* Mobile nav overlay */
+  .mobile-nav-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(8,8,8,0.97); backdrop-filter: blur(20px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+  }
+  .mobile-nav-overlay.open { display: flex; }
+  .mobile-nav-overlay a {
+    font-family: var(--font-display); font-weight: 700; font-size: 20px;
+    color: var(--white); text-decoration: none; transition: color 0.2s;
+  }
+  .mobile-nav-overlay a:hover { color: var(--accent); }
+  .mobile-nav-close {
+    position: absolute; top: 24px; right: 24px; background: none;
+    border: none; color: var(--muted); font-size: 28px; cursor: pointer;
+  }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav-overlay" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileClose">✕</button>
+  <a href="#services" onclick="closeMob()">Услуги</a>
+  <a href="#results" onclick="closeMob()">Результаты</a>
+  <a href="#process" onclick="closeMob()">Процесс</a>
+  <a href="#pricing" onclick="closeMob()">Пакеты</a>
+  <a href="#contact" onclick="closeMob()">Контакты</a>
+  <a href="#contact" class="nav-cta" onclick="closeMob()">Написать →</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">ВО ВСЁМ ВИНОВАТ МАРКЕТИНГ</a>
+  <ul class="nav-links">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#results">Результаты</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#pricing">Пакеты</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Получить аудит →</a>
+  <button class="nav-burger" id="burgerBtn" aria-label="Меню">МЕНЮ</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-gradient-motion"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Открыт к проектам · Москва / Удалённо
+      </div>
+
+      <h1 class="hero-title">
+        Во всём<br>
+        <span class="line2">виноват</span><br>
+        <span class="accent">маркетинг</span>
+      </h1>
+
+      <p class="hero-sub">
+        Находим, где бизнес теряет деньги в рекламе, воронке и продажах —
+        и собираем систему роста с понятным ROMI. Маркетинговая диагностика,
+        стратегия и performance-запуск для B2B, IT, телекома и сервисных компаний.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          Получить диагностику
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#contact" class="btn-secondary">
+          Обсудить проект
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-num">9+</span>
+          <span class="hero-stat-label">лет в маркетинге</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">~300%</span>
+          <span class="hero-stat-label">ROMI в двух проектах</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">50M+</span>
+          <span class="hero-stat-label">₽ бюджетов под управлением</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">350K</span>
+          <span class="hero-stat-label">подписчиков с нуля</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="truck-scene">
+        <div class="truck-impact"></div>
+        <img src="hero-truck.png" alt="" class="truck-img">
+        <div class="truck-bubble">Опять<br>маркетинг<br>во всём<br>виноват!!!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Performance Marketing <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">B2B Лидогенерация <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">ROMI-аудит <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Meta Ads · TikTok · VK <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Сквозная аналитика <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">SMM стратегия <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Воронки продаж <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">CJM & CRM <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Маркетинговая стратегия <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Яндекс.Директ <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Performance Marketing <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">B2B Лидогенерация <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">ROMI-аудит <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Meta Ads · TikTok · VK <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Сквозная аналитика <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">SMM стратегия <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Воронки продаж <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">CJM & CRM <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Маркетинговая стратегия <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Яндекс.Директ <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div>
+      <p class="section-label">01 / Услуги</p>
+      <h2 class="section-title">Что умеем<br>лучше всего</h2>
+    </div>
+    <p class="section-sub">Беремся за задачи в одиночку или формируем команду под проект. Фокус — на измеримом результате и финансовой отдаче каждого канала.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <p class="service-num">01</p>
+      <span class="service-icon">📐</span>
+      <h3 class="service-name">Маркетинговая диагностика</h3>
+      <p class="service-desc">Аудит рекламы, сайта, CRM, продаж, SMM, офферов и конкурентов. Карта проблем и точек роста + roadmap на 30–90 дней.</p>
+      <div class="service-tags">
+        <span class="service-tag">Аудит</span>
+        <span class="service-tag">CJM</span>
+        <span class="service-tag">Roadmap</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <p class="service-num">02</p>
+      <span class="service-icon">🎯</span>
+      <h3 class="service-name">Performance & лидогенерация</h3>
+      <p class="service-desc">Meta Ads, TikTok, VK, Яндекс.Директ, Google Ads, Telegram. Построение воронок с нуля, оптимизация CPL и ROMI.</p>
+      <div class="service-tags">
+        <span class="service-tag">Meta Ads</span>
+        <span class="service-tag">TikTok</span>
+        <span class="service-tag">Директ</span>
+        <span class="service-tag">VK Ads</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <p class="service-num">03</p>
+      <span class="service-icon">📊</span>
+      <h3 class="service-name">ROMI-аудит и финансовая модель</h3>
+      <p class="service-desc">Считаем CPL, CPA, CAC, MQL, SQL, ROMI, конверсии, потери бюджета и прогноз выручки по сценариям.</p>
+      <div class="service-tags">
+        <span class="service-tag">Метрика</span>
+        <span class="service-tag">GA4</span>
+        <span class="service-tag">Bitrix24</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <p class="service-num">04</p>
+      <span class="service-icon">📱</span>
+      <h3 class="service-name">SMM и контент-стратегия</h3>
+      <p class="service-desc">Соцсети как часть воронки: экспертность, доверие, прогрев, рубрикатор и материалы для продаж. Рост аудитории и вовлечённости.</p>
+      <div class="service-tags">
+        <span class="service-tag">Instagram</span>
+        <span class="service-tag">TikTok</span>
+        <span class="service-tag">VK</span>
+        <span class="service-tag">Telegram</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <p class="service-num">05</p>
+      <span class="service-icon">↗</span>
+      <h3 class="service-name">Стратегия роста</h3>
+      <p class="service-desc">Формируем план на 1–3 месяца, 3–12 месяцев и 1–3 года: каналы, гипотезы, бюджеты, KPI и roadmap. Не на полку.</p>
+      <div class="service-tags">
+        <span class="service-tag">B2B / B2C</span>
+        <span class="service-tag">IT / SaaS</span>
+        <span class="service-tag">Telecom</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <p class="service-num">06</p>
+      <span class="service-icon">▶</span>
+      <h3 class="service-name">Видео и продакшен</h3>
+      <p class="service-desc">Организуем интервью, отзывы, экспертные ролики, Reels, Shorts, TikTok-видео и рекламные креативы.</p>
+      <div class="service-tags">
+        <span class="service-tag">Reels</span>
+        <span class="service-tag">TikTok</span>
+        <span class="service-tag">Офлайн</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="reveal">
+    <p class="section-label">02 / Результаты</p>
+    <h2 class="section-title">Цифры,<br>а не слова</h2>
+    <p class="section-sub">Конкретные результаты из реальных проектов — ЛАНИТ (B2B IT) и Freedom Telecom (B2C телеком).</p>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-card reveal">
+      <span class="result-val">×6–8</span>
+      <div>
+        <p class="result-info-label">Ускорение обработки лидов</p>
+        <p class="result-info-desc">Выстроил SLA между маркетингом и продажами, внедрил регламенты в CRM и колл-центре.</p>
+        <p class="result-source">ЛАНИТ · 2024–2025</p>
+      </div>
+    </div>
+    <div class="result-card reveal">
+      <span class="result-val">+300%</span>
+      <div>
+        <p class="result-info-label">Рост лидогенерации</p>
+        <p class="result-info-desc">При одновременном улучшении качества лидов — MQL-to-SQL вырос вместе с объёмом.</p>
+        <p class="result-source">ЛАНИТ · 2024–2025</p>
+      </div>
+    </div>
+    <div class="result-card reveal">
+      <span class="result-val">~300%</span>
+      <div>
+        <p class="result-info-label">ROMI в обоих проектах</p>
+        <p class="result-info-desc">Достиг ~300% ROMI как в B2B IT (ЛАНИТ), так и в B2C телекоме (Freedom Telecom).</p>
+        <p class="result-source">ЛАНИТ + Freedom Telecom</p>
+      </div>
+    </div>
+    <div class="result-card reveal">
+      <span class="result-val">350K</span>
+      <div>
+        <p class="result-info-label">Подписчиков с нуля</p>
+        <p class="result-info-desc">Построил контент-машину и сообщество с 0 до 350 тыс. подписчиков в IG, TikTok и VK за 10 месяцев.</p>
+        <p class="result-source">Freedom Telecom · 2023–2024</p>
+      </div>
+    </div>
+    <div class="result-card big reveal">
+      <span class="result-val">+200%&nbsp;MQL</span>
+      <div>
+        <p class="result-info-label">За первые 2 месяца — без роста стоимости лида</p>
+        <p class="result-info-desc">Пересобрал воронку и стабилизировал CPL при росте объёма. Выстроил SLA маркетинг–продажи: ×2 договоров в первый месяц, ~×3 в последующие.</p>
+        <p class="result-source">Freedom Telecom · сентябрь 2023</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="how" id="process">
+  <div class="reveal">
+    <p class="section-label">03 / Процесс</p>
+    <h2 class="section-title">Как работаем</h2>
+    <p class="section-sub">Прозрачный процесс от брифа до отчёта с цифрами. Без воды и красивых презентаций на полку.</p>
+  </div>
+
+  <div class="how-steps">
+    <div class="step reveal">
+      <span class="step-num">1</span>
+      <h3 class="step-title">Диагностика</h3>
+      <p class="step-desc">Разбираемся с текущей ситуацией: аналитика, воронка, каналы, конкуренты, ЦА. Находим узкие места и точки роста.</p>
+      <span class="step-tag">Аудит · CJM · Анализ</span>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">2</span>
+      <h3 class="step-title">Стратегия</h3>
+      <p class="step-desc">Формируем маркетинговую стратегию с конкретными гипотезами, KPI и бюджетом. Только измеримые цели.</p>
+      <span class="step-tag">Roadmap · KPI · Медиаплан</span>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">3</span>
+      <h3 class="step-title">Запуск и тест</h3>
+      <p class="step-desc">Запускаем кампании, тестируем гипотезы, оптимизируем. Под задачи привлекаем проверенных подрядчиков.</p>
+      <span class="step-tag">Performance · HADI</span>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">4</span>
+      <h3 class="step-title">Масштаб и отчёт</h3>
+      <p class="step-desc">Масштабируем рабочие каналы, режем неэффективные. Отчёт — до уровня выручки и ROMI, не кликов.</p>
+      <span class="step-tag">ROMI · Оптимизация</span>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT / DIAGNOSTIC DETAIL -->
+<section class="audit-section" id="diagnostic">
+  <div class="reveal">
+    <p class="section-label">04 / Диагностика</p>
+    <h2 class="section-title">Что смотрим<br>при аудите</h2>
+    <p class="section-sub">Когда реклама не окупается, проблема может быть не в кабинете, а в оффере, сайте, CRM, скорости обработки или продажах.</p>
+  </div>
+
+  <div class="audit-grid">
+    <div class="audit-col reveal">
+      <div class="audit-col-title check">✓ Что проверяем</div>
+      <div class="check-row">Рекламные каналы и бюджеты</div>
+      <div class="check-row">Сайт, лендинги и формы заявок</div>
+      <div class="check-row">Офферы, УТП и анализ конкурентов</div>
+      <div class="check-row">CRM и этапы воронки</div>
+      <div class="check-row">Lead → MQL → SQL → deal</div>
+      <div class="check-row">Скорость обработки заявок (SLA)</div>
+      <div class="check-row">Качество лидов и связь с продажами</div>
+      <div class="check-row">SMM, контент и видео</div>
+      <div class="check-row">Подрядчики и отчётность</div>
+      <div class="check-row">KPI и roadmap на 30–90 дней</div>
+    </div>
+    <div class="reveal">
+      <div class="audit-note">
+        <div class="audit-note-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>
+          Не ищем виноватых. Ищем точки роста.
+        </div>
+        <p>Реклама не окупается? Дело может быть не в кабинете. Смотрим на маркетинг как на систему: оффер, сайт, CRM, скорость обработки, продажи, аналитика — всё в связке.</p>
+      </div>
+
+      <!-- Metrics -->
+      <div style="margin-top: 2px;">
+        <div class="audit-col" style="padding: 32px;">
+          <p class="section-label" style="margin-bottom: 16px;">Финансовые метрики</p>
+          <div class="metric-cloud">
+            <button class="metric-btn" type="button">CPL<span class="tooltip"><strong>CPL — стоимость лида</strong>Сколько стоит одна заявка. Потратили 50 000 ₽ и получили 100 заявок: CPL = 500 ₽.</span></button>
+            <button class="metric-btn" type="button">CPA<span class="tooltip"><strong>CPA — стоимость действия</strong>Сколько стоит нужное действие: заявка, регистрация, звонок или покупка.</span></button>
+            <button class="metric-btn" type="button">CAC<span class="tooltip"><strong>CAC — стоимость клиента</strong>Во сколько обходится один новый клиент с учётом всех расходов на маркетинг.</span></button>
+            <button class="metric-btn" type="button">MQL<span class="tooltip"><strong>MQL — маркетинговый лид</strong>Заявка с признаками потенциального клиента: интерес + соответствие параметрам.</span></button>
+            <button class="metric-btn" type="button">SQL<span class="tooltip"><strong>SQL — лид для продаж</strong>Продажи подтвердили интерес и потребность — можно двигать к сделке.</span></button>
+            <button class="metric-btn" type="button">ROMI<span class="tooltip"><strong>ROMI — окупаемость маркетинга</strong>Вложили 100 000 ₽ — заработали 300 000 ₽. ROMI = 200%.</span></button>
+            <button class="metric-btn" type="button">LTV<span class="tooltip"><strong>LTV — ценность клиента</strong>Сколько денег приносит один клиент за всё время. Часто игнорируется — и зря.</span></button>
+            <button class="metric-btn" type="button">SLA<span class="tooltip"><strong>SLA — регламент обработки</strong>Соглашение маркетинга и продаж: сколько времени на обработку лида, статусы, контроль.</span></button>
+            <button class="metric-btn" type="button">Конверсия<span class="tooltip"><strong>Конверсия — переход к следующему шагу</strong>Смотрим конверсию на каждом этапе воронки, не только в итоговую продажу.</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2px;">
+        <div class="audit-col" style="padding: 32px;">
+          <p class="section-label" style="margin-bottom: 16px;">Сценарии после аудита</p>
+          <div class="scenarios-grid" style="margin-top: 0;">
+            <div class="scenario-card">
+              <span class="sc-num">1</span>
+              <h3>Текущий</h3>
+              <p>Что будет, если ничего не менять.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="sc-num">2</span>
+              <h3>Реалистичный</h3>
+              <p>После исправления ключевых проблем.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="sc-num">3</span>
+              <h3>Оптимистичный</h3>
+              <p>При масштабировании рабочих каналов.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="sc-num">4</span>
+              <h3>Риск</h3>
+              <p>Где продолжим терять бюджет без изменений.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="strategy-section" id="strategy">
+  <div class="reveal">
+    <p class="section-label">05 / Стратегия</p>
+    <h2 class="section-title">Три стратегии вместо<br>одной красивой презентации</h2>
+    <p class="section-sub">Не делаем стратегию «на полку». Делаем документ, по которому можно действовать прямо сейчас.</p>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card reveal">
+      <p class="strategy-period">1–3 месяца</p>
+      <span class="strategy-bg-num">01</span>
+      <h3>Быстрые улучшения</h3>
+      <p>Офферы, посадочные, первые гипотезы, базовая аналитика и снижение неэффективных расходов.</p>
+    </div>
+    <div class="strategy-card reveal">
+      <p class="strategy-period">3–12 месяцев</p>
+      <span class="strategy-bg-num">02</span>
+      <h3>Система</h3>
+      <p>Канальная стратегия, медиаплан, SMM, видео, CRM, сквозная аналитика, KPI и HADI-циклы.</p>
+    </div>
+    <div class="strategy-card reveal">
+      <p class="strategy-period">1–3 года</p>
+      <span class="strategy-bg-num">03</span>
+      <h3>Масштабирование</h3>
+      <p>Позиционирование, бренд, продуктовая линейка, команда, контент, репутация и финансовая модель.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="reveal">
+    <p class="section-label">06 / Форматы работы</p>
+    <h2 class="section-title">Начните с диагностики<br>или сразу под ключ</h2>
+    <p class="section-sub">Можно начать с аудита, а можно собрать проектную маркетинговую систему под ключ.</p>
+  </div>
+
+  <div class="package-grid">
+    <div class="package-card reveal">
+      <p class="pkg-tier">Start</p>
+      <h3 class="pkg-name">Маркетинговая диагностика</h3>
+      <div class="pkg-price">от 50 000 ₽</div>
+      <p class="pkg-desc">Для бизнеса, который хочет понять, что не так с маркетингом и что исправить первым.</p>
+      <ul class="pkg-features">
+        <li>Аудит рекламы и воронки</li>
+        <li>Анализ сайта и офферов</li>
+        <li>Оценка CRM и обработки</li>
+        <li>Карта проблем и роста</li>
+        <li>Roadmap на 30 дней</li>
+      </ul>
+      <a href="#contact" class="pkg-btn pkg-btn-outline">Выбрать →</a>
+    </div>
+    <div class="package-card featured reveal">
+      <span class="pkg-badge">популярно</span>
+      <p class="pkg-tier">Strategy</p>
+      <h3 class="pkg-name">Аудит + стратегия роста</h3>
+      <div class="pkg-price">от 120 000 ₽</div>
+      <p class="pkg-desc">Для бизнеса, которому нужен не разовый совет, а понятный план развития.</p>
+      <ul class="pkg-features">
+        <li>Глубокий аудит маркетинга</li>
+        <li>Анализ конкурентов и ЦА</li>
+        <li>УТП и позиционирование</li>
+        <li>ROMI и экономика каналов</li>
+        <li>Стратегия 1 мес. — 3 года</li>
+      </ul>
+      <a href="#contact" class="pkg-btn pkg-btn-dark">Выбрать →</a>
+    </div>
+    <div class="package-card reveal">
+      <p class="pkg-tier">Growth</p>
+      <h3 class="pkg-name">Performance и лидогенерация</h3>
+      <div class="pkg-price">от 90 000 ₽/мес.</div>
+      <p class="pkg-desc">Для бизнеса, который хочет запустить или пересобрать платное продвижение.</p>
+      <ul class="pkg-features">
+        <li>Рекламная стратегия</li>
+        <li>Медиаплан и запуск</li>
+        <li>Креативные гипотезы</li>
+        <li>Контроль качества лидов</li>
+        <li>Оптимизация и отчётность</li>
+      </ul>
+      <a href="#contact" class="pkg-btn pkg-btn-outline">Выбрать →</a>
+    </div>
+    <div class="package-card reveal">
+      <p class="pkg-tier">Scale</p>
+      <h3 class="pkg-name">Внешний growth-отдел</h3>
+      <div class="pkg-price">от 180 000 ₽/мес.</div>
+      <p class="pkg-desc">Проектная маркетинговая команда без найма в штат.</p>
+      <ul class="pkg-features">
+        <li>Стратегия и performance</li>
+        <li>SMM, контент и видео</li>
+        <li>Креативы и подрядчики</li>
+        <li>Аналитика и KPI</li>
+        <li>Синхронизация с продажами</li>
+      </ul>
+      <a href="#contact" class="pkg-btn pkg-btn-outline">Выбрать →</a>
+    </div>
+  </div>
+  <p class="price-note">Стоимость без рекламного бюджета и внешнего продакшена. Финальная смета зависит от задач, каналов и объёма реализации.</p>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title">Не уверены, проблема<br>в рекламе или стратегии?</h2>
+    <p class="cta-desc">Начните с диагностики. Посмотрим на маркетинг как на систему и покажем, где реальные точки потерь и роста.</p>
+    <div class="cta-buttons">
+      <a href="#contact" class="cta-btn">Получить диагностику →</a>
+      <a href="https://t.me/Sveeeow" class="cta-btn-ghost" target="_blank" rel="noopener">Telegram @Sveeeow</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section class="contacts-section" id="contact">
+  <div class="reveal">
+    <p class="section-label">07 / Контакты</p>
+    <h2 class="section-title">Давайте разберёмся,<br>во всём ли виноват маркетинг</h2>
+    <p class="section-sub">Оставьте заявку — проведём первичную консультацию, оценим ситуацию и предложим, с чего начать.</p>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <h3>Евгений Корнилов</h3>
+      <p>Маркетинговый стратег и performance-специалист с опытом в B2B, IT, телекоме, лидогенерации, CRM, аналитике и SMM.</p>
+      <div class="contact-links">
+        <a href="mailto:eteground@gmail.com" class="contact-link">
+          eteground@gmail.com
+          <span>Email →</span>
+        </a>
+        <a href="https://t.me/Sveeeow" class="contact-link" target="_blank" rel="noopener">
+          @Sveeeow
+          <span>Telegram →</span>
+        </a>
+        <a href="tel:+79652068464" class="contact-link">
+          +7 (965) 206-84-64
+          <span>WhatsApp / TG →</span>
+        </a>
+      </div>
+    </div>
+
+    <form class="lead-form" name="landing-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-reveal data-delay="2">
+      <input type="hidden" name="form-name" value="landing-lead">
+      <p class="hidden"><label>Не заполнять: <input name="bot-field"></label></p>
+      <div class="form-row">
+        <label>Имя<input name="name" placeholder="Как к вам обращаться" required></label>
+        <label>Компания<input name="company" placeholder="Название компании"></label>
+      </div>
+      <label>Сайт или соцсети<input name="site" placeholder="Ссылка на сайт / профиль"></label>
+      <label>Что хотите улучшить?
+        <select name="task">
+          <option>Реклама и заявки</option>
+          <option>ROMI и аналитика</option>
+          <option>Стратегия роста</option>
+          <option>SMM и контент</option>
+          <option>Видео и продакшен</option>
+          <option>Работа подрядчиков</option>
+          <option>Не знаю, нужна диагностика</option>
+        </select>
+      </label>
+      <label>Комментарий<textarea name="message" placeholder="Кратко опишите задачу"></textarea></label>
+      <label>Контакт для связи<input name="contact" placeholder="Telegram, email или телефон" required></label>
+      <button class="form-submit" type="submit">ОТПРАВИТЬ ЗАЯВКУ →</button>
+      <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">ВО ВСЁМ ВИНОВАТ МАРКЕТИНГ</span>
+  <div class="footer-links">
+    <a href="#services">Услуги</a>
+    <a href="#results">Результаты</a>
+    <a href="#process">Процесс</a>
+    <a href="#pricing">Пакеты</a>
+    <a href="#contact">Контакты</a>
+  </div>
+  <span class="footer-copy">© 2026 Евгений Корнилов</span>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+if (window.matchMedia('(pointer: fine)').matches) {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a, button, .service-card, .result-card, .step, .package-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '56px'; ring.style.height = '56px';
+      ring.style.borderColor = 'rgba(250,204,21,0.6)';
+      cursor.style.transform = 'translate(-50%,-50%) scale(1.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(250,204,21,0.35)';
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+    });
+  });
+}
+
+// NAV SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 0.09 + 's';
+  observer.observe(el);
+});
+
+// MOBILE NAV
+const mobileNav = document.getElementById('mobileNav');
+document.getElementById('burgerBtn').addEventListener('click', () => {
+  mobileNav.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('mobileClose').addEventListener('click', closeMob);
+function closeMob() {
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// SMOOTH ANCHOR
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
