@@ -365,21 +365,163 @@
     font-weight: 700; letter-spacing: 0.1em; margin-bottom: 28px;
   }
   .service-icon {
-    font-size: 30px;
-    margin-bottom: 20px;
+    --icon-accent: #facc15;
+    color: var(--icon-accent);
+    margin-bottom: 18px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: fit-content;
     position: relative;
+    line-height: 1;
     transform-origin: center center;
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.58s cubic-bezier(0.16, 1, 0.3, 1), filter 0.42s ease, opacity 0.36s ease;
     will-change: transform;
   }
-  .service-card:hover .service-icon {
-    transform: translate(8px, -8px) scale(1.5);
+  .service-icon::before,
+  .service-icon::after {
+    display: none;
+  }
+  .service-icon svg {
+    width: 42px;
+    height: 42px;
+    display: block;
+    overflow: visible;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    shape-rendering: geometricPrecision;
+    filter: drop-shadow(0 3px 10px rgba(250,204,21,0.16));
+    animation: service-icon-pulse 4.2s ease-in-out infinite;
+  }
+  .service-icon .solid { fill: currentColor; stroke: none; }
+  .service-icon .soft { opacity: 0.28; }
+  .service-icon .screen { fill: rgba(250,204,21,0.08); stroke: rgba(250,204,21,0.28); }
+  .service-icon .pulse-dot { fill: currentColor; stroke: none; }
+  .icon-performance .dart-body { stroke: #ffffff; fill: none; }
+  .icon-performance .dart-head { fill: #ffffff; stroke: none; }
+  .icon-performance .dart-tail { stroke: #ef4444; fill: none; }
+
+  .service-icon.icon-diagnostic,
+  .service-icon.icon-performance,
+  .service-icon.icon-finance,
+  .service-icon.icon-social,
+  .service-icon.icon-strategy,
+  .service-icon.icon-video {
+    --icon-accent: #facc15;
   }
 
+  .service-card:hover .service-icon {
+    transform: translate(10px, -10px) scale(1.22);
+  }
+  .service-card:hover .service-icon svg {
+    animation-play-state: paused;
+    filter: drop-shadow(0 6px 16px rgba(250,204,21,0.24));
+  }
+
+  .service-icon .diag-core,
+  .service-icon .perf-dart,
+  .service-icon .finance-bars rect,
+  .service-icon .feed-scroll,
+  .service-icon .video-core,
+  .service-icon .video-lens,
+  .service-icon .video-led,
+  .service-icon .target-core,
+  .service-icon .growth-base,
+  .service-icon .growth-arrow-base,
+  .service-icon .growth-up,
+  .service-icon .growth-arrow-up {
+    transform-origin: 50% 50%;
+    transition: transform 0.62s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.36s ease, stroke-dashoffset 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-card:hover .icon-diagnostic .diag-core {
+    transform: rotate(180deg) scale(1.08);
+  }
+
+  .icon-performance .perf-dart {
+    opacity: 0;
+    transform: translate(20px, -20px) rotate(-14deg);
+  }
+  .service-card:hover .icon-performance .perf-dart {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  .service-card:hover .icon-performance .target-core {
+    transform: scale(1.04);
+  }
+
+  .icon-finance .finance-bars rect {
+    fill: currentColor;
+    stroke: none;
+    opacity: 0.22;
+  }
+  .service-card:hover .icon-finance .bar-a { animation: finance-bar-a 0.8s ease-in-out infinite alternate; }
+  .service-card:hover .icon-finance .bar-b { animation: finance-bar-b 0.72s ease-in-out infinite alternate; }
+  .service-card:hover .icon-finance .bar-c { animation: finance-bar-c 0.92s ease-in-out infinite alternate; }
+  .service-card:hover .icon-finance .bar-d { animation: finance-bar-d 0.76s ease-in-out infinite alternate; }
+
+  .icon-social .feed-scroll rect {
+    fill: currentColor;
+    stroke: none;
+    opacity: 0.18;
+  }
+  .icon-social .feed-scroll {
+    transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .service-card:hover .icon-social .feed-scroll {
+    transform: translateY(-10px);
+  }
+
+  .icon-strategy .growth-base,
+  .icon-strategy .growth-arrow-base {
+    opacity: 1;
+  }
+  .icon-strategy .growth-up,
+  .icon-strategy .growth-arrow-up {
+    opacity: 0;
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+  }
+  .service-card:hover .icon-strategy .growth-base,
+  .service-card:hover .icon-strategy .growth-arrow-base {
+    opacity: 0.16;
+  }
+  .service-card:hover .icon-strategy .growth-up,
+  .service-card:hover .icon-strategy .growth-arrow-up {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .icon-video .video-led {
+    fill: #ef4444;
+    stroke: none;
+    opacity: 0.4;
+  }
+  .icon-video .video-lens {
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+  .service-card:hover .icon-video .video-lens {
+    transform: translateX(2px) scale(1.16);
+  }
+  .service-card:hover .icon-video .video-led {
+    animation: video-record 0.9s ease-in-out infinite;
+  }
+
+  @keyframes service-icon-pulse {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); }
+    50% { transform: translate3d(0,-2px,0) scale(1.045); }
+  }
+  @keyframes finance-bar-a { from { transform: translateY(0) scaleY(1); } to { transform: translateY(-4px) scaleY(1.16); } }
+  @keyframes finance-bar-b { from { transform: translateY(0) scaleY(1); } to { transform: translateY(3px) scaleY(0.86); } }
+  @keyframes finance-bar-c { from { transform: translateY(0) scaleY(1); } to { transform: translateY(-6px) scaleY(1.22); } }
+  @keyframes finance-bar-d { from { transform: translateY(0) scaleY(1); } to { transform: translateY(-2px) scaleY(1.08); } }
+  @keyframes video-record {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
+  }
   .service-name {
     font-family: var(--font-display); font-weight: 700; font-size: 15px;
     letter-spacing: -0.01em; margin-bottom: 14px; line-height: 1.25;
@@ -988,6 +1130,29 @@
   @media (hover: hover) {
     .service-card:hover .service-icon {
       transform: translate(10px, -10px) scale(1.5) !important;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .service-icon svg,
+    .service-card:hover .icon-finance .bar-a,
+    .service-card:hover .icon-finance .bar-b,
+    .service-card:hover .icon-finance .bar-c,
+    .service-card:hover .icon-finance .bar-d,
+    .service-card:hover .icon-video .video-led {
+      animation: none !important;
+    }
+    .service-icon,
+    .service-icon * {
+      transition: none !important;
+    }
+    .icon-strategy .growth-up,
+    .icon-strategy .growth-arrow-up {
+      opacity: 1 !important;
+      stroke-dashoffset: 0 !important;
+    }
+    .icon-strategy .growth-base,
+    .icon-strategy .growth-arrow-base {
+      opacity: 0 !important;
     }
   }
 
@@ -1662,7 +1827,7 @@
   <div class="services-grid">
     <div class="service-card reveal">
       <p class="service-num">01</p>
-      <span class="service-icon">📐</span>
+      <span class="service-icon icon-diagnostic" aria-hidden="true"><svg viewBox="0 0 64 64"><g class="diag-core"><path d="M14 50V12h38L14 50Z"/><path d="M27 37V26h11L27 37Z"/></g></svg></span>
       <h3 class="service-name">Маркетинговая диагностика</h3>
       <p class="service-desc">Аудит рекламы, сайта, CRM, продаж, SMM, офферов и конкурентов. Карта проблем и точек роста + roadmap на 30–90 дней.</p>
       <div class="service-tags">
@@ -1673,7 +1838,7 @@
     </div>
     <div class="service-card reveal">
       <p class="service-num">02</p>
-      <span class="service-icon">🎯</span>
+      <span class="service-icon icon-performance" aria-hidden="true"><svg viewBox="0 0 64 64"><g class="target-core"><circle cx="32" cy="32" r="16.5"/><circle cx="32" cy="32" r="10.5" class="soft"/><circle cx="32" cy="32" r="4" class="solid"/></g><g class="perf-dart"><path class="dart-body" d="M49 15 35.5 28.5"/><path class="dart-tail" d="M49 15 54 11"/><path class="dart-tail" d="M49 15 55 17.5"/><path class="dart-head" d="M35.5 28.5 32 32l5.8-2.2z"/></g></svg></span>
       <h3 class="service-name">Performance & лидогенерация</h3>
       <p class="service-desc">Meta Ads, TikTok, VK, Яндекс.Директ, Google Ads, Telegram. Построение воронок с нуля, оптимизация CPL и ROMI.</p>
       <div class="service-tags">
@@ -1685,7 +1850,7 @@
     </div>
     <div class="service-card reveal">
       <p class="service-num">03</p>
-      <span class="service-icon">📊</span>
+      <span class="service-icon icon-finance" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 50h44"/><g class="finance-bars"><rect class="bar-a" x="14" y="33" width="7" height="17" rx="2"/><rect class="bar-b" x="25" y="25" width="7" height="25" rx="2"/><rect class="bar-c" x="36" y="19" width="7" height="31" rx="2"/><rect class="bar-d" x="47" y="12" width="7" height="38" rx="2"/></g><path d="M14 38l14-8 9 4 13-14"/></svg></span>
       <h3 class="service-name">ROMI-аудит и финансовая модель</h3>
       <p class="service-desc">Считаем CPL, CPA, CAC, MQL, SQL, ROMI, конверсии, потери бюджета и прогноз выручки по сценариям.</p>
       <div class="service-tags">
@@ -1696,7 +1861,7 @@
     </div>
     <div class="service-card reveal">
       <p class="service-num">04</p>
-      <span class="service-icon">📱</span>
+      <span class="service-icon icon-social" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="18" y="9" width="28" height="46" rx="7"/><rect class="screen" x="22" y="14" width="20" height="34" rx="4"/><g class="feed-scroll"><rect x="25" y="18" width="14" height="8" rx="2.5" class="soft"/><rect x="25" y="29" width="14" height="8" rx="2.5" class="soft"/><rect x="25" y="40" width="14" height="8" rx="2.5" class="soft"/></g><circle cx="32" cy="51" r="1.8" class="solid"/></svg></span>
       <h3 class="service-name">SMM и контент-стратегия</h3>
       <p class="service-desc">Соцсети как часть воронки: экспертность, доверие, прогрев, рубрикатор и материалы для продаж. Рост аудитории и вовлечённости.</p>
       <div class="service-tags">
@@ -1708,7 +1873,7 @@
     </div>
     <div class="service-card reveal">
       <p class="service-num">05</p>
-      <span class="service-icon">↗</span>
+      <span class="service-icon icon-strategy" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 50h44"/><path class="growth-base" d="M14 38H47"/><path class="growth-arrow-base" d="M47 38l-5-4m5 4-5 4"/><path class="growth-up" d="M14 38H23L30 33H38L45 26H52"/><path class="growth-arrow-up" d="M52 26l-5-4m5 4-5 4"/></svg></span>
       <h3 class="service-name">Стратегия роста</h3>
       <p class="service-desc">Формируем план на 1–3 месяца, 3–12 месяцев и 1–3 года: каналы, гипотезы, бюджеты, KPI и roadmap. Не на полку.</p>
       <div class="service-tags">
@@ -1719,7 +1884,7 @@
     </div>
     <div class="service-card reveal">
       <p class="service-num">06</p>
-      <span class="service-icon">▶</span>
+      <span class="service-icon icon-video" aria-hidden="true"><svg viewBox="0 0 64 64"><g class="video-core"><rect x="10" y="21" width="26" height="20" rx="5"/><path d="M36 26l14-6v22l-14-6"/><circle class="video-led pulse-dot" cx="16" cy="17" r="2.7"/></g><g class="video-lens"><circle cx="23" cy="31" r="6.5"/><circle cx="23" cy="31" r="2.2" class="solid"/></g></svg></span>
       <h3 class="service-name">Видео и продакшен</h3>
       <p class="service-desc">Организуем интервью, отзывы, экспертные ролики, Reels, Shorts, TikTok-видео и рекламные креативы.</p>
       <div class="service-tags">
