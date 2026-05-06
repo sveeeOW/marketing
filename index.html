@@ -1463,6 +1463,72 @@
     border: none; color: var(--muted); font-size: 28px; cursor: pointer;
   }
   .hidden { display: none; }
+
+
+  /* FINAL COMPOSITION FIX: SHOW MORE OF THE TRUCK TEXT */
+  .hero {
+    --hero-visual-size: min(1640px, 86vw) !important;
+    background-position: center, center, center, center, right -46px top 58px, center, center !important;
+  }
+  @media (min-width: 1800px) {
+    .hero {
+      --hero-visual-size: min(1760px, 86vw) !important;
+      background-position: center, center, center, center, right -42px top 52px, center, center !important;
+    }
+  }
+  @media (min-width: 2200px) {
+    .hero {
+      --hero-visual-size: min(1900px, 84vw) !important;
+      background-position: center, center, center, center, right -34px top 48px, center, center !important;
+    }
+  }
+  @media (max-width: 1100px) and (min-width: 768px) {
+    .hero {
+      --hero-visual-size: min(1260px, 112vw) !important;
+      background-position: center, center, center, center, right -26px top 64px, center, center !important;
+    }
+  }
+  @media (max-width: 767px) {
+    .hero-art {
+      inset: 60px -10px auto -10px !important;
+      height: min(41vh, 380px) !important;
+    }
+    .truck-img {
+      right: -12% !important;
+      top: 2% !important;
+      width: 126% !important;
+      max-width: none !important;
+    }
+    body.mobile-hero-content-visible .truck-img {
+      transform: translateY(-48px) scale(0.935) !important;
+    }
+    .hero-copy {
+      padding-top: min(44vh, 340px) !important;
+    }
+    body.mobile-hero-content-visible .hero-copy {
+      transform: translateY(-52px) scale(1) !important;
+    }
+  }
+  @media (max-width: 420px) {
+    .hero-art {
+      inset: 54px -12px auto -12px !important;
+      height: min(38vh, 300px) !important;
+    }
+    .truck-img {
+      right: -15% !important;
+      width: 132% !important;
+    }
+    body.mobile-hero-content-visible .truck-img {
+      transform: translateY(-42px) scale(0.94) !important;
+    }
+    .hero-copy {
+      padding-top: min(41vh, 300px) !important;
+    }
+    body.mobile-hero-content-visible .hero-copy {
+      transform: translateY(-46px) scale(1) !important;
+    }
+  }
+
 </style>
 </head>
 <body>
