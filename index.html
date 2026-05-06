@@ -1101,6 +1101,169 @@
   }
 
 
+
+  /* FINAL ADAPTIVE HERO WITH ENHANCED IMAGE */
+  .hero {
+    --hero-visual-size: min(1980px, 99vw) !important;
+    background-position: center, center, center, center, right -2px top 52px, center, center !important;
+    background-size: auto, auto, auto, auto, var(--hero-visual-size), auto, auto !important;
+  }
+  .hero::after {
+    background:
+      linear-gradient(to bottom, rgba(8,8,8,0.26) 0%, rgba(8,8,8,0.06) 12%, rgba(8,8,8,0.01) 26%, transparent 46%, rgba(8,8,8,0.14) 76%, rgba(8,8,8,0.68) 100%),
+      linear-gradient(90deg, transparent 50%, rgba(8,8,8,0.018) 61%, rgba(8,8,8,0.08) 72%, rgba(8,8,8,0.22) 86%, rgba(8,8,8,0.46) 100%),
+      radial-gradient(ellipse at 88% 42%, rgba(250,204,21,0.05) 0%, rgba(250,204,21,0.018) 23%, transparent 48%);
+  }
+
+  @media (min-width: 1800px) {
+    .hero {
+      --hero-visual-size: min(2180px, 98vw) !important;
+      background-position: center, center, center, center, right -2px top 48px, center, center !important;
+    }
+  }
+  @media (min-width: 2200px) {
+    .hero {
+      --hero-visual-size: min(2380px, 94vw) !important;
+      background-position: center, center, center, center, right -2px top 46px, center, center !important;
+    }
+  }
+  @media (min-width: 2800px) {
+    .hero {
+      --hero-visual-size: 2560px !important;
+      background-position: center, center, center, center, right -2px top 44px, center, center !important;
+    }
+  }
+
+  @media (max-width: 1100px) and (min-width: 768px) {
+    .hero {
+      --hero-visual-size: min(1480px, 128vw) !important;
+      background-position: center, center, center, center, right -10px top 62px, center, center !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    body.mobile-hero-intro-active nav {
+      filter: blur(12px);
+      transition: opacity 0.65s ease 3s, transform 1.0s cubic-bezier(0.22, 1, 0.36, 1) 3s, filter 1.05s ease 3s;
+    }
+    body.mobile-hero-content-visible nav { filter: blur(0); }
+    .hero {
+      background-image:
+        linear-gradient(to bottom, rgba(8,8,8,0.12) 0%, rgba(8,8,8,0.00) 18%, rgba(8,8,8,0.12) 54%, rgba(8,8,8,0.92) 100%),
+        radial-gradient(circle at 76% 22%, rgba(250,204,21,0.12) 0%, transparent 26%),
+        linear-gradient(90deg, #080808 0%, rgba(8,8,8,0.96) 25%, rgba(8,8,8,0.60) 54%, rgba(8,8,8,0.14) 80%, transparent 100%) !important;
+      background-position: center !important;
+      background-size: auto !important;
+      min-height: 100svh;
+      padding-top: 84px !important;
+    }
+    .hero::before {
+      opacity: 0.30;
+      background:
+        linear-gradient(to bottom, rgba(8,8,8,0.02) 0%, rgba(8,8,8,0.00) 22%, rgba(8,8,8,0.42) 58%, rgba(8,8,8,0.92) 100%),
+        radial-gradient(circle at 74% 24%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.014) 17%, transparent 34%);
+      transition: opacity 1.25s ease 2.0s, background 1.25s ease 2.0s;
+    }
+    body.mobile-hero-content-visible .hero::before {
+      opacity: 0.96;
+      background:
+        linear-gradient(to bottom, rgba(8,8,8,0.06) 0%, rgba(8,8,8,0.14) 18%, rgba(8,8,8,0.78) 55%, rgba(8,8,8,0.98) 100%),
+        radial-gradient(circle at 74% 24%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.008) 18%, transparent 32%);
+    }
+    .hero::after {
+      background:
+        linear-gradient(to bottom, rgba(8,8,8,0.00) 0%, rgba(8,8,8,0.02) 20%, transparent 42%, rgba(8,8,8,0.18) 70%, rgba(8,8,8,0.72) 100%),
+        linear-gradient(90deg, rgba(8,8,8,0.04) 0%, transparent 26%, transparent 70%, rgba(8,8,8,0.28) 100%);
+    }
+    .hero-art {
+      display: block !important;
+      position: absolute !important;
+      inset: 48px -30px auto -30px !important;
+      height: min(58vh, 540px) !important;
+      z-index: 0 !important;
+      overflow: visible !important;
+      pointer-events: none !important;
+    }
+    .truck-scene {
+      display: block !important;
+      position: relative !important;
+      width: 100% !important;
+      height: 100% !important;
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .truck-img {
+      display: block !important;
+      position: absolute !important;
+      right: -32% !important;
+      top: -3% !important;
+      width: 170% !important;
+      max-width: none !important;
+      height: auto !important;
+      opacity: 1 !important;
+      transform: translateY(0) scale(1.045) !important;
+      filter: brightness(1.03) saturate(1.04) contrast(1.02) drop-shadow(0 16px 42px rgba(0,0,0,0.44)) !important;
+      transition: transform 1.45s cubic-bezier(0.16, 1, 0.3, 1) 2.0s, filter 1.25s ease 2.0s, opacity 1.05s ease 2.0s !important;
+      will-change: transform, filter, opacity;
+    }
+    body.mobile-hero-content-visible .truck-img {
+      transform: translateY(-102px) scale(0.925) !important;
+      filter: brightness(0.32) saturate(0.82) contrast(1.02) drop-shadow(0 28px 58px rgba(0,0,0,0.68)) !important;
+      opacity: 0.97 !important;
+    }
+    .truck-bubble { display: none !important; }
+    .hero-copy {
+      max-width: 100% !important;
+      padding-top: min(63vh, 480px) !important;
+      opacity: 0 !important;
+      filter: blur(18px);
+      transform: translateY(146px) scale(0.982) !important;
+      transition: opacity 0.92s ease 3s, transform 1.18s cubic-bezier(0.16, 1, 0.3, 1) 3s, filter 1.02s ease 3s !important;
+      will-change: transform, opacity, filter;
+    }
+    body.mobile-hero-content-visible .hero-copy {
+      opacity: 1 !important;
+      filter: blur(0);
+      transform: translateY(-112px) scale(1) !important;
+    }
+    .hero-title, .hero-sub, .hero-actions, .hero-stats { opacity: 1 !important; animation: none !important; transform: none !important; }
+    .hero-title { font-size: 42px !important; line-height: 0.95 !important; margin-bottom: 16px !important; }
+    .hero-sub { font-size: 15px !important; line-height: 1.7 !important; margin-bottom: 30px !important; max-width: 100% !important; }
+    .hero-actions { gap: 14px !important; flex-wrap: wrap !important; }
+    .hero-stats { margin-top: 32px !important; padding-top: 22px !important; gap: 18px 22px !important; display: grid !important; grid-template-columns: 1fr 1fr !important; }
+    .hero-stat-num { font-size: 30px !important; }
+    .hero-stat-label { font-size: 12px !important; }
+  }
+
+  @media (max-width: 420px) {
+    .hero-art {
+      inset: 46px -32px auto -32px !important;
+      height: min(55vh, 440px) !important;
+    }
+    .truck-img {
+      right: -38% !important;
+      width: 182% !important;
+    }
+    body.mobile-hero-content-visible .truck-img {
+      transform: translateY(-90px) scale(0.925) !important;
+    }
+    .hero-copy {
+      padding-top: min(61vh, 430px) !important;
+      transform: translateY(132px) scale(0.982) !important;
+    }
+    body.mobile-hero-content-visible .hero-copy {
+      transform: translateY(-94px) scale(1) !important;
+    }
+    .hero-title { font-size: 38px !important; }
+  }
+
+  @media (max-width: 360px) {
+    .truck-img { right: -48% !important; width: 194% !important; }
+    .hero-copy { padding-top: min(60vh, 405px) !important; }
+    body.mobile-hero-content-visible .hero-copy { transform: translateY(-84px) scale(1) !important; }
+  }
+
   /* Mobile nav overlay */
   .mobile-nav-overlay {
     display: none; position: fixed; inset: 0; z-index: 200;
