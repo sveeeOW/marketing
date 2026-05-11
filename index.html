@@ -2179,25 +2179,57 @@
     }
     .contact-hero::after { display: none; }
     .contact-hero-image {
-      min-height: 260px;
-      border: 1px solid var(--border);
-      filter: brightness(0.84);
+      width: calc(100% + 48px);
+      min-height: 0;
+      height: auto;
+      aspect-ratio: 1672 / 941;
+      border: none;
+      filter: brightness(0.9);
+      background-image: url('contact-convoy-mobile.png');
       background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: #000;
+      margin: 0 0 0 -24px;
+      justify-self: stretch;
+      align-self: stretch;
     }
     .contact-copy {
       position: static;
       max-width: 100%;
       padding-top: 18px;
+      padding-right: 0;
     }
     .contact-copy .section-title {
-      font-size: clamp(34px, 9vw, 52px);
-      line-height: 0.94;
+      font-size: clamp(20px, 6.1vw, 30px);
+      line-height: 0.98;
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
     }
     .contact-copy .section-title .line1,
     .contact-copy .section-title .line2 {
-      white-space: normal;
+      display: block;
+    }
+    .contact-copy .section-title .line1 {
+      white-space: nowrap;
+    }
+    .contact-copy .section-title .line2 {
+      white-space: nowrap;
+    }
+    .contact-copy .section-title .line2 .accent {
+      display: block;
     }
     .contact-copy .section-sub { max-width: 100%; }
+  }
+
+  @media (max-width: 560px) {
+    .contact-hero-image {
+      width: calc(100% + 32px);
+      margin-left: -16px;
+    }
+    .contact-copy .section-title {
+      font-size: clamp(18px, 5.9vw, 26px);
+    }
   }
 
   @media (max-width: 768px) {
