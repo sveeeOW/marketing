@@ -594,8 +594,82 @@
 
   /* ─── AUDIT / DIAGNOSTIC ─── */
   .audit-section { background: var(--bg); }
-  .audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 72px; }
+  .audit-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.95fr);
+    gap: 2px;
+    margin-top: 72px;
+    align-items: start;
+  }
   .audit-col { background: var(--card); border: 1px solid var(--border); padding: 40px; }
+  .audit-checks { grid-column: 1; grid-row: 1; }
+  .audit-visual {
+    grid-column: 2;
+    grid-row: 1;
+    background: #080808;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    align-self: stretch;
+    height: 100%;
+    min-height: 0;
+  }
+  .audit-visual img {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+    object-position: center center;
+  }
+  .audit-details { grid-column: 1 / -1; grid-row: 2; }
+  .audit-visual-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--accent-border);
+    background: rgba(250, 204, 21, 0.08);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 999px;
+  }
+  .audit-visual-note {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2;
+    background: rgba(8, 8, 8, 0.78);
+    border: 1px solid rgba(250, 204, 21, 0.24);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 4px;
+    padding: 16px 18px;
+  }
+  .audit-visual-note strong {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .audit-visual-note span {
+    display: block;
+    color: var(--white-soft);
+    font-size: 13px;
+    line-height: 1.55;
+  }
   .audit-col-title {
     font-family: var(--font-display); font-size: 11px; font-weight: 700;
     letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 18px;
@@ -732,28 +806,80 @@
 
   /* ─── STRATEGY ─── */
   .strategy-section { background: var(--bg); }
-  .strategy-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 72px; }
+  .strategy-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; margin-top: 72px; align-items: stretch; }
   .strategy-card {
-    background: var(--card); border: 1px solid var(--border);
-    padding: 40px 32px; position: relative; overflow: hidden;
-    transition: border-color 0.3s;
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
   }
-  .strategy-card:hover { border-color: var(--accent-border); }
+  .strategy-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
   .strategy-card::before {
-    content: ''; position: absolute; bottom: 0; left: 0;
-    height: 2px; width: 0; background: var(--accent); transition: width 0.4s ease;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    z-index: 3;
   }
   .strategy-card:hover::before { width: 100%; }
+  .strategy-card-media {
+    position: relative;
+    margin: -40px -32px 26px;
+    aspect-ratio: 4 / 3;
+    background: #050505;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .strategy-card-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(8,8,8,0.05) 0%, rgba(8,8,8,0.12) 100%);
+    pointer-events: none;
+  }
+  .strategy-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transform: scale(1);
+    transition: transform 0.35s ease;
+  }
+  .strategy-card:hover .strategy-card-media img { transform: scale(1.03); }
+  .strategy-card-body {
+    position: relative;
+    flex: 1;
+    padding: 24px 28px 30px;
+    display: flex;
+    flex-direction: column;
+  }
   .strategy-period {
     font-family: var(--font-display); font-size: 10px; font-weight: 700;
     letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    position: relative; z-index: 1;
   }
   .strategy-bg-num {
     font-family: var(--font-display); font-size: 80px; font-weight: 900;
     color: rgba(250,204,21,0.05); position: absolute; bottom: 8px; right: 16px; line-height: 1;
+    pointer-events: none;
   }
-  .strategy-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin-bottom: 14px; position: relative; }
-  .strategy-card p { color: var(--muted); font-size: 14px; line-height: 1.65; position: relative; }
+  .strategy-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin-bottom: 14px; position: relative; z-index: 1; }
+  .strategy-card p { color: var(--muted); font-size: 14px; line-height: 1.65; position: relative; z-index: 1; }
+
+  /* force strategy visuals to fill the card header area */
+  .strategy-section .strategy-card { padding: 40px 32px 32px; }
+  .strategy-section .strategy-card .strategy-card-media { margin: -40px -32px 26px !important; aspect-ratio: 4 / 3 !important; height: auto !important; }
+  .strategy-section .strategy-card .strategy-card-media img { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center center !important; transform: scale(1) !important; }
+  .strategy-section .strategy-card:hover .strategy-card-media img { transform: scale(1.04) !important; }
 
   /* ─── CTA ─── */
   .cta-section {
@@ -804,7 +930,70 @@
 
   /* ─── CONTACTS FORM ─── */
   .contacts-section { background: var(--bg2); }
-  .contact-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2px; margin-top: 72px; }
+  .contact-hero {
+    position: relative;
+    margin-top: 24px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: #000000;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
+    align-items: center;
+    gap: 0;
+    padding: 42px 42px 36px;
+  }
+  .contact-hero-image {
+    min-height: 360px;
+    width: 100%;
+    background-image: url('contact-convoy.png');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+    filter: brightness(0.82);
+    justify-self: end;
+    align-self: stretch;
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: -42px;
+    margin-right: -42px;
+    margin-bottom: -36px;
+    border-left: none;
+  }
+  .contact-hero::after {
+    display: none;
+  }
+  .contact-copy {
+    position: relative;
+    left: auto;
+    top: auto;
+    z-index: 2;
+    max-width: 880px;
+    padding-right: 42px;
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .contact-copy .section-title {
+    margin-bottom: 18px;
+    max-width: 100%;
+    font-size: clamp(34px, 3.35vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+  .contact-copy .section-title .line1,
+  .contact-copy .section-title .line2 {
+    display: block;
+    white-space: nowrap;
+  }
+  .contact-copy .section-title .accent {
+    color: var(--accent);
+  }
+  .contact-copy .section-sub {
+    max-width: 560px;
+    margin-bottom: 0;
+    color: var(--white-soft);
+  }
+  .contact-wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2px; margin-top: 2px; }
   .contact-info { background: var(--card); border: 1px solid var(--border); padding: 48px; }
   .contact-info h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin-bottom: 12px; }
   .contact-info p { color: var(--muted); font-size: 15px; line-height: 1.65; margin-bottom: 32px; }
@@ -842,127 +1031,10 @@
   .form-note { font-size: 12px; color: var(--muted2); text-align: center; }
 
 
-
-
-  /* ─── SECTION VISUALS ─── */
-  .visual-card {
-    position: relative;
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 75% 20%, rgba(250,204,21,0.16) 0%, transparent 28%),
-      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
-      #090909;
-    border: 1px solid var(--border);
-    isolation: isolate;
-  }
-  .visual-card::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(180deg, rgba(8,8,8,0.08) 0%, rgba(8,8,8,0.02) 40%, rgba(8,8,8,0.32) 100%);
-  }
-  .visual-card::after {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    box-shadow: inset 0 0 0 1px rgba(250,204,21,0.05);
-  }
-  .visual-card img,
-  .strategy-media img,
-  .cta-visual img,
-  .contact-visual-card img {
-    width: 100%; height: 100%; display: block; object-fit: cover;
-    filter: saturate(1.03) contrast(1.02);
-    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
-  }
-  .visual-card:hover img,
-  .strategy-card:hover .strategy-media img,
-  .cta-visual:hover img,
-  .contact-visual-card:hover img { transform: scale(1.04); }
-  .visual-badge {
-    position: absolute; top: 18px; left: 18px; z-index: 2;
-    padding: 7px 12px; border-radius: 999px;
-    background: rgba(8,8,8,0.72); border: 1px solid rgba(250,204,21,0.18);
-    color: var(--accent); font-family: var(--font-display); font-size: 10px;
-    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .visual-caption {
-    position: absolute; left: 18px; bottom: 18px; z-index: 2; max-width: 340px;
-    color: rgba(255,255,255,0.92); font-size: 13px; line-height: 1.55;
-    background: rgba(8,8,8,0.44); backdrop-filter: blur(6px);
-    border: 1px solid rgba(250,204,21,0.12); border-radius: 6px; padding: 12px 14px;
-  }
-  .visual-caption strong {
-    display: block; margin-bottom: 4px; color: var(--accent2);
-    font-family: var(--font-display); font-size: 12px;
-  }
-  .audit-side-stack { display: grid; gap: 2px; }
-  .audit-visual-card { min-height: 260px; }
-
-  .strategy-card {
-    display: flex; flex-direction: column;
-  }
-  .strategy-media {
-    aspect-ratio: 4 / 3; margin: -40px -32px 26px; overflow: hidden;
-    border-bottom: 1px solid var(--border); background: #050505;
-  }
-
-  .cta-inner {
-    position: relative; max-width: 1240px;
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
-    gap: 40px; align-items: center;
-  }
-  .cta-copy { position: relative; z-index: 2; }
-  .cta-visual {
-    position: relative; min-height: 360px; overflow: hidden; isolation: isolate;
-    border: 1px solid rgba(8,8,8,0.16); box-shadow: 0 28px 90px rgba(0,0,0,0.24);
-    background: rgba(8,8,8,0.14);
-  }
-  .cta-visual::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(180deg, rgba(8,8,8,0.05), rgba(8,8,8,0.22));
-  }
-
-  .contact-visual-wrap { margin-top: 72px; }
-  .contact-visual-card {
-    position: relative; min-height: 340px; overflow: hidden;
-    border: 1px solid var(--border); background: #070707; isolation: isolate;
-  }
-  .contact-visual-card::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background:
-      linear-gradient(90deg, rgba(8,8,8,0.74) 0%, rgba(8,8,8,0.2) 35%, rgba(8,8,8,0.02) 100%),
-      linear-gradient(180deg, rgba(8,8,8,0.02) 0%, rgba(8,8,8,0.2) 100%);
-  }
-  .contact-visual-copy {
-    position: absolute; left: 32px; bottom: 32px; z-index: 2; max-width: 380px;
-  }
-  .contact-visual-copy h3 {
-    font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 3vw, 42px);
-    line-height: 0.98; margin-bottom: 14px;
-  }
-  .contact-visual-copy p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.65; }
-
-  @media (max-width: 1199px) {
-    .cta-inner { grid-template-columns: 1fr; }
-    .cta-visual { min-height: 320px; order: -1; }
-    .contact-visual-card { min-height: 300px; }
-  }
-
-
   @media (prefers-reduced-motion: reduce) {
     .hero-gradient-motion, .hero-glow, .hero-glow2, .marquee-track, .hero-badge .dot,
     .truck-scene, .truck-impact, .truck-bubble { animation: none !important; }
     .truck-scene, .truck-impact, .truck-bubble { opacity: 1 !important; transform: none !important; }
-  }
-
-
-  @media (max-width: 767px) {
-    .audit-visual-card { min-height: 220px; }
-    .strategy-media { margin: -32px -24px 22px; aspect-ratio: 16 / 11; }
-    .visual-badge { top: 14px; left: 14px; padding: 6px 10px; font-size: 9px; }
-    .visual-caption { left: 14px; right: 14px; bottom: 14px; max-width: none; padding: 10px 12px; font-size: 12px; }
-    .cta-visual { min-height: 220px; }
-    .contact-visual-wrap { margin-top: 48px; }
-    .contact-visual-card { min-height: 240px; }
-    .contact-visual-copy { left: 18px; right: 18px; bottom: 18px; max-width: none; }
-    .contact-visual-copy p { font-size: 13px; }
   }
 
   /* ─── MOBILE HERO INTRO ─── */
@@ -1085,407 +1157,7 @@
     .hero-title { font-size: 38px; }
   }
 
-
-
-  /* ─── SECTION VISUAL REFINEMENTS ─── */
-  .audit-grid.refined { align-items: start; }
-  .audit-main { display: block; }
-  .audit-main .audit-note,
-  .audit-main .audit-embedded {
-    margin-top: 28px;
-  }
-  .audit-embedded {
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
-  }
-  .audit-embedded .section-label {
-    margin-bottom: 16px;
-  }
-  .audit-side-stack.audit-aside {
-    align-self: stretch;
-  }
-  .audit-side-stack.audit-aside .audit-visual-card {
-    min-height: 360px;
-    height: 100%;
-  }
-  .audit-side-stack.audit-aside .visual-caption {
-    max-width: 300px;
-  }
-
-  .strategy-grid.refined .strategy-card {
-    padding: 0 0 26px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .strategy-grid.refined .strategy-media {
-    aspect-ratio: 4 / 3;
-    min-height: 420px;
-    max-height: none;
-    margin: 0 0 18px;
-    border-bottom: 1px solid var(--border);
-    background: #050505;
-    display: block;
-    padding: 0;
-  }
-  .strategy-grid.refined .strategy-media img {
-    object-fit: cover;
-    object-position: center center;
-    transform: scale(0.6);
-    background: #050505;
-  }
-  .strategy-grid.refined .strategy-card:hover .strategy-media img {
-    transform: scale(0.64);
-  }
-  .strategy-grid.refined .strategy-period,
-  .strategy-grid.refined .strategy-card h3,
-  .strategy-grid.refined .strategy-card > p:last-of-type {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-  .strategy-grid.refined .strategy-card p {
-    font-size: 13px;
-    line-height: 1.58;
-  }
-  .strategy-grid.refined .strategy-bg-num {
-    right: 20px;
-    bottom: 10px;
-  }
-
-  .cta-section.refined {
-    padding: 118px 48px;
-    overflow: hidden;
-  }
-  .cta-section.refined .cta-inner {
-    max-width: 1680px;
-    grid-template-columns: minmax(0, 0.68fr) minmax(860px, 1.32fr);
-    gap: 56px;
-    align-items: center;
-  }
-  .cta-section.refined .cta-copy {
-    padding-right: 12px;
-    align-self: center;
-    position: relative;
-    z-index: 3;
-  }
-  .cta-section.refined .cta-visual.visual-card {
-    min-height: 640px;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
-    overflow: hidden;
-    width: calc(100% + 260px);
-    margin-right: -260px;
-    margin-top: -20px;
-    margin-bottom: -20px;
-  }
-  .cta-section.refined .cta-visual.visual-card::after {
-    display: none;
-  }
-  .cta-section.refined .cta-visual::before {
-    background:
-      linear-gradient(90deg, rgba(250,204,21,1) 0%, rgba(250,204,21,0.96) 14%, rgba(250,204,21,0.74) 28%, rgba(250,204,21,0.28) 42%, rgba(250,204,21,0.0) 58%),
-      linear-gradient(180deg, rgba(250,204,21,0.01), rgba(250,204,21,0.04));
-  }
-  .cta-section.refined .cta-visual img {
-    object-position: 84% center;
-    transform: scale(1.18);
-  }
-  .cta-section.refined .cta-visual:hover img { transform: scale(1.22); }
-  .cta-section.refined .visual-badge {
-    top: 22px; right: 22px; left: auto;
-    background: rgba(8,8,8,0.78);
-  }
-  .cta-section.refined .visual-caption {
-    right: 20px; left: auto; bottom: 22px; max-width: 355px;
-    background: rgba(8,8,8,0.62);
-  }
-
-  .contact-intro { display: none; }
-  .contact-visual-wrap.refined {
-    margin-top: 18px;
-  }
-  .contact-visual-wrap.refined .contact-visual-card {
-    min-height: 540px;
-  }
-  .contact-visual-wrap.refined .contact-visual-card::before {
-    background:
-      linear-gradient(90deg, rgba(8,8,8,0.90) 0%, rgba(8,8,8,0.78) 16%, rgba(8,8,8,0.44) 34%, rgba(8,8,8,0.16) 58%, rgba(8,8,8,0.08) 100%),
-      linear-gradient(180deg, rgba(8,8,8,0.10) 0%, rgba(8,8,8,0.28) 100%);
-  }
-  .contact-visual-wrap.refined .contact-visual-copy {
-    left: 36px;
-    top: 48px;
-    bottom: auto;
-    max-width: 520px;
-    z-index: 3;
-  }
-  .contact-visual-wrap.refined .contact-visual-copy .section-label {
-    margin-bottom: 14px;
-    padding-right: 120px;
-  }
-  .contact-visual-wrap.refined .contact-visual-copy h2 {
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: clamp(36px, 4.2vw, 64px);
-    line-height: 0.94;
-    margin-bottom: 16px;
-  }
-  .contact-visual-wrap.refined .contact-visual-copy p {
-    color: rgba(255,255,255,0.78);
-    font-size: 16px;
-    line-height: 1.68;
-    margin-bottom: 0;
-    max-width: 480px;
-  }
-  .contact-visual-wrap.refined .contact-visual-badge {
-    position: absolute;
-    right: 24px;
-    left: auto;
-    top: 22px;
-    z-index: 4;
-  }
-
-
-  /* ─── DESKTOP POLISH: CTA + CONTACTS ─── */
-  @media (min-width: 768px) {
-    .cta-section.refined {
-      padding: 88px 48px;
-    }
-    .cta-section.refined .cta-inner {
-      max-width: 1460px;
-      grid-template-columns: minmax(320px, 0.8fr) minmax(540px, 1fr);
-      gap: 44px;
-      align-items: center;
-    }
-    .cta-section.refined .cta-copy {
-      max-width: 470px;
-      padding-right: 0;
-    }
-    .cta-section.refined .cta-title {
-      margin-bottom: 22px;
-    }
-    .cta-section.refined .cta-visual.visual-card {
-      min-height: 500px;
-      width: 100%;
-      margin: 0;
-      border: 1px solid rgba(8, 8, 8, 0.18);
-      border-radius: 0;
-      background: #090909;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
-    }
-    .cta-section.refined .cta-visual::before {
-      display: none;
-    }
-    .cta-section.refined .cta-visual img {
-      object-position: center center;
-      transform: scale(1.01);
-    }
-    .cta-section.refined .cta-visual:hover img {
-      transform: scale(1.04);
-    }
-
-    .contact-intro {
-      display: block;
-      max-width: 1520px;
-      margin: 0 auto 28px;
-      position: relative;
-      z-index: 3;
-    }
-    .contact-intro .section-title {
-      max-width: none;
-      font-size: clamp(38px, 3.6vw, 66px);
-      white-space: nowrap;
-    }
-    .contact-intro .section-title br {
-      display: none;
-    }
-    .contact-intro .section-sub {
-      max-width: 900px;
-    }
-
-    .contact-visual-wrap.refined {
-      margin-top: 0;
-      max-width: 1520px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 1;
-    }
-    .contact-visual-wrap.refined .contact-visual-card {
-      min-height: 620px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      position: relative;
-    }
-    .contact-visual-wrap.refined .contact-visual-card::before {
-      background:
-        linear-gradient(180deg, rgba(8,8,8,0.18) 0%, rgba(8,8,8,0.34) 42%, rgba(8,8,8,0.60) 100%),
-        linear-gradient(90deg, rgba(8,8,8,0.04) 0%, rgba(8,8,8,0.10) 100%);
-    }
-    .contact-visual-wrap.refined .contact-visual-card img {
-      filter: brightness(0.58) saturate(0.95);
-      object-position: center center;
-      transform: scale(1.02);
-    }
-    .contact-visual-wrap.refined .contact-visual-copy {
-      display: none;
-    }
-    .contact-visual-wrap.refined .contact-visual-badge {
-      top: 24px;
-      right: 24px;
-      left: auto;
-    }
-
-    .contact-wrap {
-      width: min(1520px, calc(100% - 72px));
-      margin: -168px auto 0;
-      position: relative;
-      z-index: 4;
-      gap: 18px;
-    }
-    .contact-info,
-    .lead-form {
-      background: rgba(11, 11, 11, 0.44);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
-      backdrop-filter: blur(22px) saturate(135%);
-      -webkit-backdrop-filter: blur(22px) saturate(135%);
-    }
-    .contact-link,
-    .lead-form input,
-    .lead-form select,
-    .lead-form textarea {
-      background: rgba(5, 5, 5, 0.46);
-      border-color: rgba(255, 255, 255, 0.08);
-    }
-  }
-
-  @media (min-width: 768px) and (max-width: 1180px) {
-    .contact-intro .section-title {
-      white-space: normal;
-      max-width: 980px;
-    }
-    .contact-wrap {
-      width: min(1520px, calc(100% - 48px));
-      margin-top: -136px;
-    }
-  }
-
-
   /* ─── RESPONSIVE ─── */
-
-  @media (max-width: 1100px) {
-    .cta-section.refined .cta-inner { grid-template-columns: 1fr; gap: 40px; }
-    .cta-section.refined .cta-visual.visual-card {
-      min-height: 460px;
-      width: 100%;
-      margin-right: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-    .cta-section.refined .cta-visual::before {
-      background:
-        linear-gradient(180deg, rgba(250,204,21,0.12) 0%, rgba(250,204,21,0.00) 20%),
-        linear-gradient(90deg, rgba(250,204,21,0.86) 0%, rgba(250,204,21,0.48) 22%, rgba(250,204,21,0.0) 52%);
-    }
-    .cta-section.refined .cta-visual img { object-position: 80% center; transform: scale(1.12); }
-    .contact-visual-wrap.refined .contact-visual-card { min-height: 430px; }
-    .contact-visual-wrap.refined .contact-visual-copy { max-width: 460px; top: 42px; }
-    .contact-visual-wrap.refined .contact-visual-badge { right: 18px; top: 18px; left: auto; }
-  }
-  @media (max-width: 767px) {
-    .audit-grid.refined { gap: 14px; }
-    .audit-main .audit-note,
-    .audit-main .audit-embedded { margin-top: 22px; }
-    .audit-side-stack.audit-aside .audit-visual-card { min-height: 240px; }
-    .strategy-grid.refined {
-      display: flex !important;
-      overflow-x: auto;
-      gap: 14px;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 8px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .strategy-grid.refined::-webkit-scrollbar { display: none; }
-    .strategy-grid.refined .strategy-card {
-      min-width: 86vw;
-      flex: 0 0 86vw;
-      scroll-snap-align: start;
-    }
-    .strategy-grid.refined .strategy-media {
-      aspect-ratio: 4 / 3;
-      min-height: 250px;
-      max-height: none;
-      margin: 0 0 18px;
-      padding: 0;
-    }
-    .strategy-grid.refined .strategy-media img {
-      object-fit: cover;
-      transform: scale(0.72);
-    }
-    .cta-section.refined { padding: 76px 24px; }
-    .cta-section.refined .cta-inner { gap: 24px; }
-    .cta-section.refined .cta-copy { padding-right: 0; }
-    .cta-section.refined .cta-visual.visual-card {
-      order: 2;
-      min-height: 420px;
-      margin-right: -24px;
-      margin-left: -24px;
-    }
-    .cta-section.refined .cta-visual::before {
-      background:
-        linear-gradient(180deg, rgba(250,204,21,0.10) 0%, rgba(250,204,21,0.0) 14%),
-        linear-gradient(90deg, rgba(250,204,21,0.90) 0%, rgba(250,204,21,0.56) 24%, rgba(250,204,21,0.0) 48%);
-    }
-    .cta-section.refined .cta-visual img {
-      object-position: 82% center;
-      transform: scale(1.18);
-    }
-    .cta-section.refined .visual-badge { top: 14px; right: 14px; left: auto; }
-    .cta-section.refined .visual-caption {
-      right: 14px; left: 14px; max-width: none; bottom: 14px;
-    }
-    .contact-visual-wrap.refined { margin-top: 0; }
-    .contact-visual-wrap.refined .contact-visual-card {
-      min-height: auto;
-      margin-left: -24px;
-      margin-right: -24px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .contact-visual-wrap.refined .contact-visual-card::before {
-      display: none;
-    }
-    .contact-visual-wrap.refined .contact-visual-card img {
-      height: auto;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      object-position: center center;
-    }
-    .contact-visual-wrap.refined .contact-visual-copy {
-      position: relative;
-      left: auto; right: auto; top: auto; bottom: auto;
-      max-width: none;
-      padding: 22px 20px 28px;
-      background: #070707;
-    }
-    .contact-visual-wrap.refined .contact-visual-copy .section-label {
-      padding-right: 0;
-      margin-top: 0;
-      margin-bottom: 12px;
-    }
-    .contact-visual-wrap.refined .contact-visual-copy h2 {
-      font-size: 34px;
-      line-height: 0.95;
-      max-width: none;
-    }
-    .contact-visual-wrap.refined .contact-visual-copy p { font-size: 14px; max-width: none; }
-    .contact-visual-wrap.refined .contact-visual-badge { right: 16px; left: auto; top: 16px; }
-  }
-
   @media (max-width: 1100px) {
     nav { padding: 16px 24px; }
     nav.scrolled { padding: 10px 24px; }
@@ -1508,11 +1180,22 @@
     .package-grid { grid-template-columns: 1fr 1fr; }
     .scenarios-grid { grid-template-columns: 1fr 1fr; }
     .audit-grid { grid-template-columns: 1fr; }
+    .audit-checks { grid-column: 1; grid-row: 2; }
+    .audit-visual { grid-column: 1; grid-row: 1; min-height: auto; }
+    .audit-visual img { min-height: 520px; }
+    .audit-details { grid-column: 1; grid-row: 3; }
     .cta-section { padding: 80px 24px; }
     footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 640px) {
     .services-grid, .how-steps, .package-grid, .scenarios-grid, .strategy-grid, .form-row { grid-template-columns: 1fr; }
+    .audit-section .section-sub { max-width: 100%; }
+    .audit-grid { margin-top: 40px; }
+    .audit-checks .audit-col-title.check { margin-bottom: 20px; }
+    .audit-visual img { min-height: 340px; max-height: 420px; object-fit: cover; object-position: center center; }
+    .audit-col { padding: 28px 22px; }
+    .audit-visual-badge { top: 12px; left: 12px; padding: 8px 12px; font-size: 10px; }
+    .audit-visual-note { left: 12px; right: 12px; bottom: 12px; padding: 14px; }
     .hero-title { font-size: 44px; line-height: .94; }
     .result-val { font-size: 38px; }
     .hero-stats { gap: 28px; }
@@ -1649,110 +1332,6 @@
       transform: translate(10px, -10px) scale(1.5) !important;
     }
   }
-
-
-  /* ─── SECTION VISUALS ─── */
-  .visual-card {
-    position: relative;
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 75% 20%, rgba(250,204,21,0.16) 0%, transparent 28%),
-      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
-      #090909;
-    border: 1px solid var(--border);
-    isolation: isolate;
-  }
-  .visual-card::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(180deg, rgba(8,8,8,0.08) 0%, rgba(8,8,8,0.02) 40%, rgba(8,8,8,0.32) 100%);
-  }
-  .visual-card::after {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    box-shadow: inset 0 0 0 1px rgba(250,204,21,0.05);
-  }
-  .visual-card img,
-  .strategy-media img,
-  .cta-visual img,
-  .contact-visual-card img {
-    width: 100%; height: 100%; display: block; object-fit: cover;
-    filter: saturate(1.03) contrast(1.02);
-    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
-  }
-  .visual-card:hover img,
-  .strategy-card:hover .strategy-media img,
-  .cta-visual:hover img,
-  .contact-visual-card:hover img { transform: scale(1.04); }
-  .visual-badge {
-    position: absolute; top: 18px; left: 18px; z-index: 2;
-    padding: 7px 12px; border-radius: 999px;
-    background: rgba(8,8,8,0.72); border: 1px solid rgba(250,204,21,0.18);
-    color: var(--accent); font-family: var(--font-display); font-size: 10px;
-    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .visual-caption {
-    position: absolute; left: 18px; bottom: 18px; z-index: 2; max-width: 340px;
-    color: rgba(255,255,255,0.92); font-size: 13px; line-height: 1.55;
-    background: rgba(8,8,8,0.44); backdrop-filter: blur(6px);
-    border: 1px solid rgba(250,204,21,0.12); border-radius: 6px; padding: 12px 14px;
-  }
-  .visual-caption strong {
-    display: block; margin-bottom: 4px; color: var(--accent2);
-    font-family: var(--font-display); font-size: 12px;
-  }
-  .audit-side-stack { display: grid; gap: 2px; }
-  .audit-visual-card { min-height: 260px; }
-
-  .strategy-card {
-    display: flex; flex-direction: column;
-  }
-  .strategy-media {
-    aspect-ratio: 4 / 3; margin: -40px -32px 26px; overflow: hidden;
-    border-bottom: 1px solid var(--border); background: #050505;
-  }
-
-  .cta-inner {
-    position: relative; max-width: 1240px;
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
-    gap: 40px; align-items: center;
-  }
-  .cta-copy { position: relative; z-index: 2; }
-  .cta-visual {
-    position: relative; min-height: 360px; overflow: hidden; isolation: isolate;
-    border: 1px solid rgba(8,8,8,0.16); box-shadow: 0 28px 90px rgba(0,0,0,0.24);
-    background: rgba(8,8,8,0.14);
-  }
-  .cta-visual::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(180deg, rgba(8,8,8,0.05), rgba(8,8,8,0.22));
-  }
-
-  .contact-visual-wrap { margin-top: 72px; }
-  .contact-visual-card {
-    position: relative; min-height: 340px; overflow: hidden;
-    border: 1px solid var(--border); background: #070707; isolation: isolate;
-  }
-  .contact-visual-card::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background:
-      linear-gradient(90deg, rgba(8,8,8,0.74) 0%, rgba(8,8,8,0.2) 35%, rgba(8,8,8,0.02) 100%),
-      linear-gradient(180deg, rgba(8,8,8,0.02) 0%, rgba(8,8,8,0.2) 100%);
-  }
-  .contact-visual-copy {
-    position: absolute; left: 32px; bottom: 32px; z-index: 2; max-width: 380px;
-  }
-  .contact-visual-copy h3 {
-    font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 3vw, 42px);
-    line-height: 0.98; margin-bottom: 14px;
-  }
-  .contact-visual-copy p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.65; }
-
-  @media (max-width: 1199px) {
-    .cta-inner { grid-template-columns: 1fr; }
-    .cta-visual { min-height: 320px; order: -1; }
-    .contact-visual-card { min-height: 300px; }
-  }
-
-
   @media (prefers-reduced-motion: reduce) {
     .service-icon svg,
     .service-card:hover .icon-finance .bar-a,
@@ -2570,6 +2149,98 @@
     }
   }
 
+
+  /* --- Audit image sizing / strategy slider / contact hero mobile overrides --- */
+  .audit-grid { align-items: stretch; }
+  .audit-checks { align-self: stretch; }
+  .audit-visual {
+    align-self: stretch;
+    height: 100%;
+    min-height: 0 !important;
+  }
+  .audit-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 0 !important;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  @media (max-width: 960px) {
+    .contact-hero {
+      display: flex;
+      flex-direction: column;
+      margin-top: 18px;
+      border: none;
+      background: transparent;
+      overflow: visible;
+      gap: 0;
+      padding: 0;
+    }
+    .contact-hero::after { display: none; }
+    .contact-hero-image {
+      min-height: 260px;
+      border: 1px solid var(--border);
+      filter: brightness(0.84);
+      background-position: center center;
+    }
+    .contact-copy {
+      position: static;
+      max-width: 100%;
+      padding-top: 18px;
+    }
+    .contact-copy .section-title {
+      font-size: clamp(34px, 9vw, 52px);
+      line-height: 0.94;
+    }
+    .contact-copy .section-title .line1,
+    .contact-copy .section-title .line2 {
+      white-space: normal;
+    }
+    .contact-copy .section-sub { max-width: 100%; }
+  }
+
+  @media (max-width: 768px) {
+    .strategy-section .strategy-grid {
+      display: flex !important;
+      grid-template-columns: none !important;
+      overflow-x: auto;
+      gap: 14px !important;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+      margin-top: 40px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .strategy-section .strategy-grid::-webkit-scrollbar { display: none; }
+    .strategy-section .strategy-card {
+      flex: 0 0 calc(100vw - 34px);
+      min-width: calc(100vw - 34px);
+      scroll-snap-align: start;
+    }
+    .strategy-card-media {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
+    .strategy-card-media img { transform: scale(1); }
+    .strategy-card-body { padding: 22px 22px 28px; }
+
+    .audit-checks { grid-row: 2 !important; }
+    .audit-visual {
+      grid-row: 1 !important;
+      height: 300px !important;
+      min-height: 300px !important;
+    }
+    .audit-details { grid-row: 3 !important; }
+    .audit-visual img {
+      position: absolute;
+      inset: 0;
+      max-height: none !important;
+      min-height: 0 !important;
+      height: 100% !important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -2868,8 +2539,8 @@
     <p class="section-sub">Когда реклама не окупается, проблема может быть не в кабинете, а в оффере, сайте, CRM, скорости обработки или продажах.</p>
   </div>
 
-  <div class="audit-grid refined">
-    <div class="audit-col audit-main reveal">
+  <div class="audit-grid">
+    <div class="audit-col audit-checks reveal">
       <div class="audit-col-title check">✓ Что проверяем</div>
       <div class="check-row">Рекламные каналы и бюджеты</div>
       <div class="check-row">Сайт, лендинги и формы заявок</div>
@@ -2881,7 +2552,18 @@
       <div class="check-row">SMM, контент и видео</div>
       <div class="check-row">Подрядчики и отчётность</div>
       <div class="check-row">KPI и roadmap на 30–90 дней</div>
+    </div>
 
+    <div class="audit-visual reveal">
+      <div class="audit-visual-badge">Аудит системы</div>
+      <img src="audit-system-visual.png" alt="Визуал диагностики: специалист анализирует маркетинговую воронку, CRM и показатели через крупную лупу">
+      <div class="audit-visual-note">
+        <strong>Что смотрим при аудите</strong>
+        <span>Реклама, воронка, CRM, офферы, обработка лидов, экономика каналов и связь с продажами.</span>
+      </div>
+    </div>
+
+    <div class="audit-details reveal">
       <div class="audit-note">
         <div class="audit-note-title">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>
@@ -2890,53 +2572,50 @@
         <p>Реклама не окупается? Дело может быть не в кабинете. Смотрим на маркетинг как на систему: оффер, сайт, CRM, скорость обработки, продажи, аналитика — всё в связке.</p>
       </div>
 
-      <div class="audit-embedded">
-        <p class="section-label" style="margin-bottom: 16px;">Финансовые метрики</p>
-        <div class="metric-cloud">
-          <button class="metric-btn" type="button">CPL<span class="tooltip"><strong>CPL — стоимость лида</strong>Сколько стоит одна заявка. Потратили 50 000 ₽ и получили 100 заявок: CPL = 500 ₽.</span></button>
-          <button class="metric-btn" type="button">CPA<span class="tooltip"><strong>CPA — стоимость действия</strong>Сколько стоит нужное действие: заявка, регистрация, звонок или покупка.</span></button>
-          <button class="metric-btn" type="button">CAC<span class="tooltip"><strong>CAC — стоимость клиента</strong>Во сколько обходится один новый клиент с учётом всех расходов на маркетинг.</span></button>
-          <button class="metric-btn" type="button">MQL<span class="tooltip"><strong>MQL — маркетинговый лид</strong>Заявка с признаками потенциального клиента: интерес + соответствие параметрам.</span></button>
-          <button class="metric-btn" type="button">SQL<span class="tooltip"><strong>SQL — лид для продаж</strong>Продажи подтвердили интерес и потребность — можно двигать к сделке.</span></button>
-          <button class="metric-btn" type="button">ROMI<span class="tooltip"><strong>ROMI — окупаемость маркетинга</strong>Вложили 100 000 ₽ — заработали 300 000 ₽. ROMI = 200%.</span></button>
-          <button class="metric-btn" type="button">LTV<span class="tooltip"><strong>LTV — ценность клиента</strong>Сколько денег приносит один клиент за всё время. Часто игнорируется — и зря.</span></button>
-          <button class="metric-btn" type="button">SLA<span class="tooltip"><strong>SLA — регламент обработки</strong>Соглашение маркетинга и продаж: сколько времени на обработку лида, статусы, контроль.</span></button>
-          <button class="metric-btn" type="button">Конверсия<span class="tooltip"><strong>Конверсия — переход к следующему шагу</strong>Смотрим конверсию на каждом этапе воронки, не только в итоговую продажу.</span></button>
-        </div>
-      </div>
-
-      <div class="audit-embedded">
-        <p class="section-label" style="margin-bottom: 16px;">Сценарии после аудита</p>
-        <div class="scenarios-grid" style="margin-top: 0;">
-          <div class="scenario-card">
-            <span class="sc-num">1</span>
-            <h3>Текущий</h3>
-            <p>Что будет, если ничего не менять.</p>
-          </div>
-          <div class="scenario-card">
-            <span class="sc-num">2</span>
-            <h3>Реалистичный</h3>
-            <p>После исправления ключевых проблем.</p>
-          </div>
-          <div class="scenario-card">
-            <span class="sc-num">3</span>
-            <h3>Оптимистичный</h3>
-            <p>При масштабировании рабочих каналов.</p>
-          </div>
-          <div class="scenario-card">
-            <span class="sc-num">4</span>
-            <h3>Риск</h3>
-            <p>Где продолжим терять бюджет без изменений.</p>
+      <!-- Metrics -->
+      <div style="margin-top: 2px;">
+        <div class="audit-col" style="padding: 32px;">
+          <p class="section-label" style="margin-bottom: 16px;">Финансовые метрики</p>
+          <div class="metric-cloud">
+            <button class="metric-btn" type="button">CPL<span class="tooltip"><strong>CPL — стоимость лида</strong>Сколько стоит одна заявка. Потратили 50 000 ₽ и получили 100 заявок: CPL = 500 ₽.</span></button>
+            <button class="metric-btn" type="button">CPA<span class="tooltip"><strong>CPA — стоимость действия</strong>Сколько стоит нужное действие: заявка, регистрация, звонок или покупка.</span></button>
+            <button class="metric-btn" type="button">CAC<span class="tooltip"><strong>CAC — стоимость клиента</strong>Во сколько обходится один новый клиент с учётом всех расходов на маркетинг.</span></button>
+            <button class="metric-btn" type="button">MQL<span class="tooltip"><strong>MQL — маркетинговый лид</strong>Заявка с признаками потенциального клиента: интерес + соответствие параметрам.</span></button>
+            <button class="metric-btn" type="button">SQL<span class="tooltip"><strong>SQL — лид для продаж</strong>Продажи подтвердили интерес и потребность — можно двигать к сделке.</span></button>
+            <button class="metric-btn" type="button">ROMI<span class="tooltip"><strong>ROMI — окупаемость маркетинга</strong>Вложили 100 000 ₽ — заработали 300 000 ₽. ROMI = 200%.</span></button>
+            <button class="metric-btn" type="button">LTV<span class="tooltip"><strong>LTV — ценность клиента</strong>Сколько денег приносит один клиент за всё время. Часто игнорируется — и зря.</span></button>
+            <button class="metric-btn" type="button">SLA<span class="tooltip"><strong>SLA — регламент обработки</strong>Соглашение маркетинга и продаж: сколько времени на обработку лида, статусы, контроль.</span></button>
+            <button class="metric-btn" type="button">Конверсия<span class="tooltip"><strong>Конверсия — переход к следующему шагу</strong>Смотрим конверсию на каждом этапе воронки, не только в итоговую продажу.</span></button>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="reveal audit-side-stack audit-aside">
-      <div class="visual-card audit-visual-card">
-        <img src="audit-visual.png" alt="Специалист анализирует маркетинговую систему через большую лупу">
-        <span class="visual-badge">Аудит системы</span>
-        <div class="visual-caption"><strong>Что смотрим при аудите</strong>Реклама, воронка, CRM, офферы, обработка лидов, экономика каналов и связка с продажами.</div>
+      <div style="margin-top: 2px;">
+        <div class="audit-col" style="padding: 32px;">
+          <p class="section-label" style="margin-bottom: 16px;">Сценарии после аудита</p>
+          <div class="scenarios-grid" style="margin-top: 0;">
+            <div class="scenario-card">
+              <span class="sc-num">1</span>
+              <h3>Текущий</h3>
+              <p>Что будет, если ничего не менять.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="sc-num">2</span>
+              <h3>Реалистичный</h3>
+              <p>После исправления ключевых проблем.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="sc-num">3</span>
+              <h3>Оптимистичный</h3>
+              <p>При масштабировании рабочих каналов.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="sc-num">4</span>
+              <h3>Риск</h3>
+              <p>Где продолжим терять бюджет без изменений.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2950,27 +2629,39 @@
     <p class="section-sub">Не делаем стратегию «на полку». Делаем документ, по которому можно действовать прямо сейчас.</p>
   </div>
 
-  <div class="strategy-grid refined">
+  <div class="strategy-grid">
     <div class="strategy-card reveal">
-      <div class="strategy-media"><img src="strategy-fast.png" alt="Ракета как символ быстрых улучшений и ускорения роста"></div>
-      <p class="strategy-period">1–3 месяца</p>
-      <span class="strategy-bg-num">01</span>
-      <h3>Быстрые улучшения</h3>
-      <p>Офферы, посадочные, первые гипотезы, базовая аналитика и снижение неэффективных расходов.</p>
+      <div class="strategy-card-media">
+        <img src="strategy-quick.png" alt="Ракета как символ быстрых улучшений, первых гипотез и ускорения маркетинга">
+      </div>
+      <div class="strategy-card-body">
+        <p class="strategy-period">1–3 месяца</p>
+        <span class="strategy-bg-num">01</span>
+        <h3>Быстрые улучшения</h3>
+        <p>Офферы, посадочные, первые гипотезы, базовая аналитика и снижение неэффективных расходов.</p>
+      </div>
     </div>
     <div class="strategy-card reveal">
-      <div class="strategy-media"><img src="strategy-system.png" alt="Каналы и данные, которые сходятся к результату"></div>
-      <p class="strategy-period">3–12 месяцев</p>
-      <span class="strategy-bg-num">02</span>
-      <h3>Система</h3>
-      <p>Канальная стратегия, медиаплан, SMM, видео, CRM, сквозная аналитика, KPI и HADI-циклы.</p>
+      <div class="strategy-card-media">
+        <img src="strategy-system.png" alt="Каналы и данные, которые сходятся к результату и формируют систему роста">
+      </div>
+      <div class="strategy-card-body">
+        <p class="strategy-period">3–12 месяцев</p>
+        <span class="strategy-bg-num">02</span>
+        <h3>Система</h3>
+        <p>Канальная стратегия, медиаплан, SMM, видео, CRM, сквозная аналитика, KPI и HADI-циклы.</p>
+      </div>
     </div>
     <div class="strategy-card reveal">
-      <div class="strategy-media"><img src="strategy-scale.png" alt="Масштабирование бизнеса, команда и рост финансовой модели"></div>
-      <p class="strategy-period">1–3 года</p>
-      <span class="strategy-bg-num">03</span>
-      <h3>Масштабирование</h3>
-      <p>Позиционирование, бренд, продуктовая линейка, команда, контент, репутация и финансовая модель.</p>
+      <div class="strategy-card-media">
+        <img src="strategy-scale.png" alt="Масштабирование бизнеса, команда и рост финансовой модели">
+      </div>
+      <div class="strategy-card-body">
+        <p class="strategy-period">1–3 года</p>
+        <span class="strategy-bg-num">03</span>
+        <h3>Масштабирование</h3>
+        <p>Позиционирование, бренд, продуктовая линейка, команда, контент, репутация и финансовая модель.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -3046,41 +2737,28 @@
 </section>
 
 <!-- CTA -->
-<section class="cta-section refined">
+<section class="cta-section">
   <div class="cta-inner">
-    <div class="cta-copy">
-      <h2 class="cta-title">Не уверены, проблема<br>в рекламе или стратегии?</h2>
-      <p class="cta-desc">Начните с диагностики. Посмотрим на маркетинг как на систему и покажем, где реальные точки потерь и роста.</p>
-      <div class="cta-buttons">
-        <a href="#contact" class="cta-btn">Получить диагностику →</a>
-        <a href="https://t.me/Sveeeow" class="cta-btn-ghost" target="_blank" rel="noopener">Telegram @Sveeeow</a>
-      </div>
-    </div>
-    <div class="cta-visual visual-card reveal" data-delay="1">
-      <img src="cta-audit-checklist.png" alt="Человек в очках с чек-листом проводит маркетинговую диагностику">
-      <span class="visual-badge">Чек-лист аудита</span>
-      <div class="visual-caption"><strong>Диагностика без воды</strong>Проверяем гипотезы, рекламу, воронку и стратегию — с понятными выводами и приоритетами.</div>
+    <h2 class="cta-title">Не уверены, проблема<br>в рекламе или стратегии?</h2>
+    <p class="cta-desc">Начните с диагностики. Посмотрим на маркетинг как на систему и покажем, где реальные точки потерь и роста.</p>
+    <div class="cta-buttons">
+      <a href="#contact" class="cta-btn">Получить диагностику →</a>
+      <a href="https://t.me/Sveeeow" class="cta-btn-ghost" target="_blank" rel="noopener">Telegram @Sveeeow</a>
     </div>
   </div>
 </section>
 
 <!-- CONTACTS -->
 <section class="contacts-section" id="contact">
-  <div class="reveal contact-intro">
+  <div class="reveal">
     <p class="section-label">07 / Контакты</p>
-    <h2 class="section-title">Давайте разберёмся,<br>во всём ли виноват маркетинг</h2>
-    <p class="section-sub">Оставьте заявку — проведём первичную консультацию, оценим ситуацию и предложим, с чего начать.</p>
   </div>
 
-  <div class="contact-visual-wrap refined reveal" data-delay="1">
-    <div class="contact-visual-card">
-      <img src="contact-convoy.png" alt="Фура маркетинга с прицепами Лиды, Сделки, Конверсия и Репутация мчится на зелёный свет">
-      <span class="visual-badge contact-visual-badge">Маркетинг как система</span>
-      <div class="contact-visual-copy">
-        <p class="section-label">07 / Контакты</p>
-        <h2>Давайте разберёмся,<br>во всём ли виноват маркетинг</h2>
-        <p>Оставьте заявку — проведём первичную консультацию, оценим ситуацию и предложим, с чего начать.</p>
-      </div>
+  <div class="contact-hero reveal">
+    <div class="contact-hero-image" aria-hidden="true"></div>
+    <div class="contact-copy">
+      <h2 class="section-title"><span class="line1">Давайте разберёмся,</span><span class="line2">во всём ли виноват <span class="accent">маркетинг</span></span></h2>
+      <p class="section-sub">Оставьте заявку — проведём первичную консультацию, оценим ситуацию и предложим, с чего начать.</p>
     </div>
   </div>
 
