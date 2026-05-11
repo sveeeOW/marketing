@@ -842,10 +842,127 @@
   .form-note { font-size: 12px; color: var(--muted2); text-align: center; }
 
 
+
+
+  /* ─── SECTION VISUALS ─── */
+  .visual-card {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 75% 20%, rgba(250,204,21,0.16) 0%, transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
+      #090909;
+    border: 1px solid var(--border);
+    isolation: isolate;
+  }
+  .visual-card::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(8,8,8,0.08) 0%, rgba(8,8,8,0.02) 40%, rgba(8,8,8,0.32) 100%);
+  }
+  .visual-card::after {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(250,204,21,0.05);
+  }
+  .visual-card img,
+  .strategy-media img,
+  .cta-visual img,
+  .contact-visual-card img {
+    width: 100%; height: 100%; display: block; object-fit: cover;
+    filter: saturate(1.03) contrast(1.02);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+  }
+  .visual-card:hover img,
+  .strategy-card:hover .strategy-media img,
+  .cta-visual:hover img,
+  .contact-visual-card:hover img { transform: scale(1.04); }
+  .visual-badge {
+    position: absolute; top: 18px; left: 18px; z-index: 2;
+    padding: 7px 12px; border-radius: 999px;
+    background: rgba(8,8,8,0.72); border: 1px solid rgba(250,204,21,0.18);
+    color: var(--accent); font-family: var(--font-display); font-size: 10px;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .visual-caption {
+    position: absolute; left: 18px; bottom: 18px; z-index: 2; max-width: 340px;
+    color: rgba(255,255,255,0.92); font-size: 13px; line-height: 1.55;
+    background: rgba(8,8,8,0.44); backdrop-filter: blur(6px);
+    border: 1px solid rgba(250,204,21,0.12); border-radius: 6px; padding: 12px 14px;
+  }
+  .visual-caption strong {
+    display: block; margin-bottom: 4px; color: var(--accent2);
+    font-family: var(--font-display); font-size: 12px;
+  }
+  .audit-side-stack { display: grid; gap: 2px; }
+  .audit-visual-card { min-height: 260px; }
+
+  .strategy-card {
+    display: flex; flex-direction: column;
+  }
+  .strategy-media {
+    aspect-ratio: 4 / 3; margin: -40px -32px 26px; overflow: hidden;
+    border-bottom: 1px solid var(--border); background: #050505;
+  }
+
+  .cta-inner {
+    position: relative; max-width: 1240px;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
+    gap: 40px; align-items: center;
+  }
+  .cta-copy { position: relative; z-index: 2; }
+  .cta-visual {
+    position: relative; min-height: 360px; overflow: hidden; isolation: isolate;
+    border: 1px solid rgba(8,8,8,0.16); box-shadow: 0 28px 90px rgba(0,0,0,0.24);
+    background: rgba(8,8,8,0.14);
+  }
+  .cta-visual::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(8,8,8,0.05), rgba(8,8,8,0.22));
+  }
+
+  .contact-visual-wrap { margin-top: 72px; }
+  .contact-visual-card {
+    position: relative; min-height: 340px; overflow: hidden;
+    border: 1px solid var(--border); background: #070707; isolation: isolate;
+  }
+  .contact-visual-card::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(8,8,8,0.74) 0%, rgba(8,8,8,0.2) 35%, rgba(8,8,8,0.02) 100%),
+      linear-gradient(180deg, rgba(8,8,8,0.02) 0%, rgba(8,8,8,0.2) 100%);
+  }
+  .contact-visual-copy {
+    position: absolute; left: 32px; bottom: 32px; z-index: 2; max-width: 380px;
+  }
+  .contact-visual-copy h3 {
+    font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 3vw, 42px);
+    line-height: 0.98; margin-bottom: 14px;
+  }
+  .contact-visual-copy p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.65; }
+
+  @media (max-width: 1199px) {
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-visual { min-height: 320px; order: -1; }
+    .contact-visual-card { min-height: 300px; }
+  }
+
+
   @media (prefers-reduced-motion: reduce) {
     .hero-gradient-motion, .hero-glow, .hero-glow2, .marquee-track, .hero-badge .dot,
     .truck-scene, .truck-impact, .truck-bubble { animation: none !important; }
     .truck-scene, .truck-impact, .truck-bubble { opacity: 1 !important; transform: none !important; }
+  }
+
+
+  @media (max-width: 767px) {
+    .audit-visual-card { min-height: 220px; }
+    .strategy-media { margin: -32px -24px 22px; aspect-ratio: 16 / 11; }
+    .visual-badge { top: 14px; left: 14px; padding: 6px 10px; font-size: 9px; }
+    .visual-caption { left: 14px; right: 14px; bottom: 14px; max-width: none; padding: 10px 12px; font-size: 12px; }
+    .cta-visual { min-height: 220px; }
+    .contact-visual-wrap { margin-top: 48px; }
+    .contact-visual-card { min-height: 240px; }
+    .contact-visual-copy { left: 18px; right: 18px; bottom: 18px; max-width: none; }
+    .contact-visual-copy p { font-size: 13px; }
   }
 
   /* ─── MOBILE HERO INTRO ─── */
@@ -1132,6 +1249,110 @@
       transform: translate(10px, -10px) scale(1.5) !important;
     }
   }
+
+
+  /* ─── SECTION VISUALS ─── */
+  .visual-card {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 75% 20%, rgba(250,204,21,0.16) 0%, transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
+      #090909;
+    border: 1px solid var(--border);
+    isolation: isolate;
+  }
+  .visual-card::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(8,8,8,0.08) 0%, rgba(8,8,8,0.02) 40%, rgba(8,8,8,0.32) 100%);
+  }
+  .visual-card::after {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(250,204,21,0.05);
+  }
+  .visual-card img,
+  .strategy-media img,
+  .cta-visual img,
+  .contact-visual-card img {
+    width: 100%; height: 100%; display: block; object-fit: cover;
+    filter: saturate(1.03) contrast(1.02);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+  }
+  .visual-card:hover img,
+  .strategy-card:hover .strategy-media img,
+  .cta-visual:hover img,
+  .contact-visual-card:hover img { transform: scale(1.04); }
+  .visual-badge {
+    position: absolute; top: 18px; left: 18px; z-index: 2;
+    padding: 7px 12px; border-radius: 999px;
+    background: rgba(8,8,8,0.72); border: 1px solid rgba(250,204,21,0.18);
+    color: var(--accent); font-family: var(--font-display); font-size: 10px;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .visual-caption {
+    position: absolute; left: 18px; bottom: 18px; z-index: 2; max-width: 340px;
+    color: rgba(255,255,255,0.92); font-size: 13px; line-height: 1.55;
+    background: rgba(8,8,8,0.44); backdrop-filter: blur(6px);
+    border: 1px solid rgba(250,204,21,0.12); border-radius: 6px; padding: 12px 14px;
+  }
+  .visual-caption strong {
+    display: block; margin-bottom: 4px; color: var(--accent2);
+    font-family: var(--font-display); font-size: 12px;
+  }
+  .audit-side-stack { display: grid; gap: 2px; }
+  .audit-visual-card { min-height: 260px; }
+
+  .strategy-card {
+    display: flex; flex-direction: column;
+  }
+  .strategy-media {
+    aspect-ratio: 4 / 3; margin: -40px -32px 26px; overflow: hidden;
+    border-bottom: 1px solid var(--border); background: #050505;
+  }
+
+  .cta-inner {
+    position: relative; max-width: 1240px;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
+    gap: 40px; align-items: center;
+  }
+  .cta-copy { position: relative; z-index: 2; }
+  .cta-visual {
+    position: relative; min-height: 360px; overflow: hidden; isolation: isolate;
+    border: 1px solid rgba(8,8,8,0.16); box-shadow: 0 28px 90px rgba(0,0,0,0.24);
+    background: rgba(8,8,8,0.14);
+  }
+  .cta-visual::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(8,8,8,0.05), rgba(8,8,8,0.22));
+  }
+
+  .contact-visual-wrap { margin-top: 72px; }
+  .contact-visual-card {
+    position: relative; min-height: 340px; overflow: hidden;
+    border: 1px solid var(--border); background: #070707; isolation: isolate;
+  }
+  .contact-visual-card::before {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(8,8,8,0.74) 0%, rgba(8,8,8,0.2) 35%, rgba(8,8,8,0.02) 100%),
+      linear-gradient(180deg, rgba(8,8,8,0.02) 0%, rgba(8,8,8,0.2) 100%);
+  }
+  .contact-visual-copy {
+    position: absolute; left: 32px; bottom: 32px; z-index: 2; max-width: 380px;
+  }
+  .contact-visual-copy h3 {
+    font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 3vw, 42px);
+    line-height: 0.98; margin-bottom: 14px;
+  }
+  .contact-visual-copy p { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.65; }
+
+  @media (max-width: 1199px) {
+    .cta-inner { grid-template-columns: 1fr; }
+    .cta-visual { min-height: 320px; order: -1; }
+    .contact-visual-card { min-height: 300px; }
+  }
+
+
   @media (prefers-reduced-motion: reduce) {
     .service-icon svg,
     .service-card:hover .icon-finance .bar-a,
@@ -2261,7 +2482,12 @@
       <div class="check-row">Подрядчики и отчётность</div>
       <div class="check-row">KPI и roadmap на 30–90 дней</div>
     </div>
-    <div class="reveal">
+    <div class="reveal audit-side-stack">
+      <div class="visual-card audit-visual-card">
+        <img src="audit-visual.png" alt="Специалист анализирует маркетинговую систему через большую лупу">
+        <span class="visual-badge">Аудит системы</span>
+        <div class="visual-caption"><strong>Что смотрим при аудите</strong>Реклама, воронка, CRM, офферы, обработка лидов, экономика каналов и связка с продажами.</div>
+      </div>
       <div class="audit-note">
         <div class="audit-note-title">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>
@@ -2329,18 +2555,21 @@
 
   <div class="strategy-grid">
     <div class="strategy-card reveal">
+      <div class="strategy-media"><img src="strategy-fast.png" alt="Ракета как символ быстрых улучшений и ускорения роста"></div>
       <p class="strategy-period">1–3 месяца</p>
       <span class="strategy-bg-num">01</span>
       <h3>Быстрые улучшения</h3>
       <p>Офферы, посадочные, первые гипотезы, базовая аналитика и снижение неэффективных расходов.</p>
     </div>
     <div class="strategy-card reveal">
+      <div class="strategy-media"><img src="strategy-system.png" alt="Каналы и данные, которые сходятся к результату"></div>
       <p class="strategy-period">3–12 месяцев</p>
       <span class="strategy-bg-num">02</span>
       <h3>Система</h3>
       <p>Канальная стратегия, медиаплан, SMM, видео, CRM, сквозная аналитика, KPI и HADI-циклы.</p>
     </div>
     <div class="strategy-card reveal">
+      <div class="strategy-media"><img src="strategy-scale.png" alt="Масштабирование бизнеса, команда и рост финансовой модели"></div>
       <p class="strategy-period">1–3 года</p>
       <span class="strategy-bg-num">03</span>
       <h3>Масштабирование</h3>
@@ -2422,11 +2651,18 @@
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-inner">
-    <h2 class="cta-title">Не уверены, проблема<br>в рекламе или стратегии?</h2>
-    <p class="cta-desc">Начните с диагностики. Посмотрим на маркетинг как на систему и покажем, где реальные точки потерь и роста.</p>
-    <div class="cta-buttons">
-      <a href="#contact" class="cta-btn">Получить диагностику →</a>
-      <a href="https://t.me/Sveeeow" class="cta-btn-ghost" target="_blank" rel="noopener">Telegram @Sveeeow</a>
+    <div class="cta-copy">
+      <h2 class="cta-title">Не уверены, проблема<br>в рекламе или стратегии?</h2>
+      <p class="cta-desc">Начните с диагностики. Посмотрим на маркетинг как на систему и покажем, где реальные точки потерь и роста.</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="cta-btn">Получить диагностику →</a>
+        <a href="https://t.me/Sveeeow" class="cta-btn-ghost" target="_blank" rel="noopener">Telegram @Sveeeow</a>
+      </div>
+    </div>
+    <div class="cta-visual visual-card reveal" data-delay="1">
+      <img src="cta-audit-checklist.png" alt="Человек в очках с чек-листом проводит маркетинговую диагностику">
+      <span class="visual-badge">Чек-лист аудита</span>
+      <div class="visual-caption"><strong>Диагностика без воды</strong>Проверяем гипотезы, рекламу, воронку и стратегию — с понятными выводами и приоритетами.</div>
     </div>
   </div>
 </section>
@@ -2437,6 +2673,17 @@
     <p class="section-label">07 / Контакты</p>
     <h2 class="section-title">Давайте разберёмся,<br>во всём ли виноват маркетинг</h2>
     <p class="section-sub">Оставьте заявку — проведём первичную консультацию, оценим ситуацию и предложим, с чего начать.</p>
+  </div>
+
+  <div class="contact-visual-wrap reveal" data-delay="1">
+    <div class="contact-visual-card">
+      <img src="contact-convoy.png" alt="Фура маркетинга с прицепами Лиды, Сделки, Конверсия и Репутация мчится на зелёный свет">
+      <span class="visual-badge">Маркетинг как система</span>
+      <div class="contact-visual-copy">
+        <h3>Не просто трафик —<br>а целая система роста</h3>
+        <p>Когда каналы, воронка, репутация и продажи едут в одну сторону, маркетинг перестаёт быть «виноватым» и начинает приносить результат.</p>
+      </div>
+    </div>
   </div>
 
   <div class="contact-wrap">
