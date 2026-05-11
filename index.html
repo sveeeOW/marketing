@@ -1117,15 +1117,24 @@
     overflow: hidden;
   }
   .strategy-grid.refined .strategy-media {
-    aspect-ratio: 16 / 9;
-    min-height: 250px;
-    max-height: 320px;
+    aspect-ratio: 16 / 10;
+    min-height: 340px;
+    max-height: 420px;
     margin: -28px -24px 18px;
     border-bottom: 1px solid var(--border);
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 18px 0;
   }
   .strategy-grid.refined .strategy-media img {
+    object-fit: contain;
     object-position: center center;
-    transform: scale(1.015);
+    transform: scale(0.78);
+  }
+  .strategy-grid.refined .strategy-card:hover .strategy-media img {
+    transform: scale(0.82);
   }
   .strategy-grid.refined .strategy-card p {
     font-size: 13px;
@@ -1137,41 +1146,42 @@
     overflow: hidden;
   }
   .cta-section.refined .cta-inner {
-    max-width: 1500px;
-    grid-template-columns: minmax(0, 0.82fr) minmax(560px, 1.18fr);
-    gap: 72px;
+    max-width: 1600px;
+    grid-template-columns: minmax(0, 0.74fr) minmax(720px, 1.26fr);
+    gap: 88px;
     align-items: center;
   }
   .cta-section.refined .cta-copy {
-    padding-right: 18px;
+    padding-right: 12px;
     align-self: center;
     position: relative;
     z-index: 3;
   }
   .cta-section.refined .cta-visual.visual-card {
-    min-height: 520px;
+    min-height: 620px;
     background: transparent;
     border: none;
     box-shadow: none;
     border-radius: 0;
     overflow: hidden;
-    margin-right: -24px;
-    margin-top: -10px;
-    margin-bottom: -10px;
+    width: calc(100% + 140px);
+    margin-right: -140px;
+    margin-top: -16px;
+    margin-bottom: -16px;
   }
   .cta-section.refined .cta-visual.visual-card::after {
     display: none;
   }
   .cta-section.refined .cta-visual::before {
     background:
-      linear-gradient(90deg, rgba(250,204,21,1) 0%, rgba(250,204,21,0.98) 10%, rgba(250,204,21,0.72) 20%, rgba(250,204,21,0.26) 32%, rgba(250,204,21,0) 46%),
-      linear-gradient(180deg, rgba(250,204,21,0.02), rgba(250,204,21,0.08));
+      linear-gradient(90deg, rgba(250,204,21,0.98) 0%, rgba(250,204,21,0.92) 12%, rgba(250,204,21,0.58) 24%, rgba(250,204,21,0.18) 38%, rgba(250,204,21,0) 56%),
+      linear-gradient(180deg, rgba(250,204,21,0.02), rgba(250,204,21,0.06));
   }
   .cta-section.refined .cta-visual img {
-    object-position: 66% center;
-    transform: scale(1.08);
+    object-position: 74% center;
+    transform: scale(1.12);
   }
-  .cta-section.refined .cta-visual:hover img { transform: scale(1.11); }
+  .cta-section.refined .cta-visual:hover img { transform: scale(1.15); }
   .cta-section.refined .visual-badge {
     top: 22px; right: 22px; left: auto;
     background: rgba(8,8,8,0.78);
@@ -1230,19 +1240,20 @@
   /* ─── RESPONSIVE ─── */
 
   @media (max-width: 1100px) {
-    .cta-section.refined .cta-inner { grid-template-columns: 1fr; gap: 36px; }
+    .cta-section.refined .cta-inner { grid-template-columns: 1fr; gap: 40px; }
     .cta-section.refined .cta-visual.visual-card {
-      min-height: 390px;
+      min-height: 420px;
+      width: 100%;
       margin-right: 0;
       margin-top: 0;
       margin-bottom: 0;
     }
     .cta-section.refined .cta-visual::before {
       background:
-        linear-gradient(180deg, rgba(250,204,21,0.14) 0%, rgba(250,204,21,0.00) 24%),
-        linear-gradient(90deg, rgba(250,204,21,0.88) 0%, rgba(250,204,21,0.5) 22%, rgba(250,204,21,0.0) 48%);
+        linear-gradient(180deg, rgba(250,204,21,0.12) 0%, rgba(250,204,21,0.00) 20%),
+        linear-gradient(90deg, rgba(250,204,21,0.86) 0%, rgba(250,204,21,0.48) 22%, rgba(250,204,21,0.0) 52%);
     }
-    .cta-section.refined .cta-visual img { object-position: 64% center; transform: scale(1.05); }
+    .cta-section.refined .cta-visual img { object-position: 74% center; transform: scale(1.08); }
     .contact-visual-wrap.refined .contact-visual-card { min-height: 430px; }
     .contact-visual-wrap.refined .contact-visual-copy { max-width: 460px; top: 42px; }
     .contact-visual-wrap.refined .contact-visual-badge { right: 18px; top: 18px; left: auto; }
@@ -1268,27 +1279,32 @@
     }
     .strategy-grid.refined .strategy-media {
       aspect-ratio: 16 / 10;
-      min-height: 190px;
-      max-height: 240px;
+      min-height: 220px;
+      max-height: 280px;
       margin: -28px -24px 18px;
+      padding: 12px 12px 0;
+    }
+    .strategy-grid.refined .strategy-media img {
+      object-fit: contain;
+      transform: scale(0.82);
     }
     .cta-section.refined { padding: 76px 24px; }
     .cta-section.refined .cta-inner { gap: 24px; }
     .cta-section.refined .cta-copy { padding-right: 0; }
     .cta-section.refined .cta-visual.visual-card {
       order: 2;
-      min-height: 300px;
+      min-height: 360px;
       margin-right: -24px;
       margin-left: -24px;
     }
     .cta-section.refined .cta-visual::before {
       background:
-        linear-gradient(180deg, rgba(250,204,21,0.14) 0%, rgba(250,204,21,0.0) 18%),
-        linear-gradient(90deg, rgba(250,204,21,0.90) 0%, rgba(250,204,21,0.56) 18%, rgba(250,204,21,0.0) 40%);
+        linear-gradient(180deg, rgba(250,204,21,0.10) 0%, rgba(250,204,21,0.0) 14%),
+        linear-gradient(90deg, rgba(250,204,21,0.90) 0%, rgba(250,204,21,0.56) 24%, rgba(250,204,21,0.0) 48%);
     }
     .cta-section.refined .cta-visual img {
-      object-position: 70% center;
-      transform: scale(1.06);
+      object-position: 76% center;
+      transform: scale(1.12);
     }
     .cta-section.refined .visual-badge { top: 14px; right: 14px; left: auto; }
     .cta-section.refined .visual-caption {
@@ -1296,23 +1312,40 @@
     }
     .contact-visual-wrap.refined { margin-top: 0; }
     .contact-visual-wrap.refined .contact-visual-card {
-      min-height: 420px;
+      min-height: auto;
       margin-left: -24px;
       margin-right: -24px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .contact-visual-wrap.refined .contact-visual-card::before {
+      display: none;
+    }
+    .contact-visual-wrap.refined .contact-visual-card img {
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center center;
     }
     .contact-visual-wrap.refined .contact-visual-copy {
-      left: 20px; right: 20px; top: 24px; max-width: none;
+      position: relative;
+      left: auto; right: auto; top: auto; bottom: auto;
+      max-width: none;
+      padding: 22px 20px 28px;
+      background: #070707;
     }
     .contact-visual-wrap.refined .contact-visual-copy .section-label {
       padding-right: 0;
-      margin-top: 18px;
+      margin-top: 0;
+      margin-bottom: 12px;
     }
     .contact-visual-wrap.refined .contact-visual-copy h2 {
       font-size: 34px;
       line-height: 0.95;
-      max-width: 310px;
+      max-width: none;
     }
-    .contact-visual-wrap.refined .contact-visual-copy p { font-size: 14px; max-width: 280px; }
+    .contact-visual-wrap.refined .contact-visual-copy p { font-size: 14px; max-width: none; }
     .contact-visual-wrap.refined .contact-visual-badge { right: 16px; left: auto; top: 16px; }
   }
 
