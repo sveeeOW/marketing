@@ -348,6 +348,143 @@
   }
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
 
+
+  .meta-service-feature {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1.15fr);
+    gap: 2px;
+    margin-bottom: 2px;
+    border: 1px solid var(--accent-border);
+    background: linear-gradient(135deg, rgba(250,204,21,0.085), rgba(255,255,255,0.025) 34%, rgba(255,255,255,0.015));
+    overflow: hidden;
+  }
+  .meta-service-feature::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(250,204,21,0.12), transparent 30%),
+      linear-gradient(90deg, rgba(8,8,8,0.28), transparent 62%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .meta-service-copy {
+    position: relative;
+    z-index: 1;
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .meta-service-label {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    border: 1px solid var(--accent-border);
+    background: rgba(250,204,21,0.08);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .meta-service-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.1vw, 48px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin-bottom: 20px;
+  }
+  .meta-service-title span { color: var(--accent); }
+  .meta-service-desc {
+    color: var(--white-soft);
+    font-size: 16px;
+    line-height: 1.72;
+    max-width: 620px;
+    margin-bottom: 26px;
+  }
+  .meta-service-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 18px;
+    list-style: none;
+    margin-bottom: 28px;
+  }
+  .meta-service-list li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--white-soft);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .meta-service-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .meta-service-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .meta-service-actions .mini-cta,
+  .meta-service-actions .mini-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 12px 18px;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    border-radius: 4px;
+  }
+  .meta-service-actions .mini-cta {
+    border: 1px solid var(--accent-border);
+    background: var(--accent);
+    color: #080808;
+  }
+  .meta-service-actions .mini-link {
+    border: 1px solid var(--border);
+    color: var(--white);
+    background: rgba(255,255,255,0.025);
+  }
+  .meta-service-visual {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+    background: #050505;
+  }
+  .meta-service-visual img {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+    object-position: center right;
+    display: block;
+    filter: saturate(1.04) contrast(1.04);
+  }
+  .meta-service-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(8,8,8,0.42) 0%, rgba(8,8,8,0.10) 32%, transparent 62%),
+      linear-gradient(180deg, rgba(8,8,8,0.06), rgba(8,8,8,0.26));
+    pointer-events: none;
+  }
+
   .service-card {
     background: var(--card); border: 1px solid var(--border);
     padding: 40px 36px; position: relative; overflow: hidden;
@@ -1177,6 +1314,10 @@
     .gap-wrap, .contact-wrap { grid-template-columns: 1fr; }
     .hero-stats { gap: 32px; flex-wrap: wrap; }
     .services-header { grid-template-columns: 1fr; }
+    .meta-service-feature { grid-template-columns: 1fr; }
+    .meta-service-visual { order: -1; min-height: 360px; }
+    .meta-service-visual img { min-height: 360px; }
+    .meta-service-copy { padding: 38px 30px; }
     .package-grid { grid-template-columns: 1fr 1fr; }
     .scenarios-grid { grid-template-columns: 1fr 1fr; }
     .audit-grid { grid-template-columns: 1fr; }
@@ -2063,6 +2204,40 @@
       padding: 30px 24px !important;
     }
 
+    .meta-service-feature {
+      width: 100% !important;
+      max-width: 100% !important;
+      grid-template-columns: 1fr !important;
+      margin-bottom: 2px !important;
+    }
+    .meta-service-copy {
+      padding: 30px 24px !important;
+    }
+    .meta-service-title {
+      font-size: clamp(25px, 8vw, 36px) !important;
+    }
+    .meta-service-desc {
+      font-size: 14px !important;
+    }
+    .meta-service-list {
+      grid-template-columns: 1fr !important;
+      gap: 9px !important;
+    }
+    .meta-service-visual {
+      order: -1 !important;
+      min-height: 250px !important;
+    }
+    .meta-service-visual img {
+      min-height: 250px !important;
+      object-position: center right !important;
+    }
+    .meta-service-actions .mini-cta,
+    .meta-service-actions .mini-link {
+      width: 100% !important;
+      min-height: 44px !important;
+      text-align: center !important;
+    }
+
     .result-card,
     .result-card.big {
       display: block !important;
@@ -2416,6 +2591,27 @@
       <h2 class="section-title">Что умеем<br>лучше всего</h2>
     </div>
     <p class="section-sub">Беремся за задачи в одиночку или формируем команду под проект. Фокус — на измеримом результате и финансовой отдаче каждого канала.</p>
+  </div>
+
+  <div class="meta-service-feature reveal">
+    <div class="meta-service-copy">
+      <p class="meta-service-label">Главная услуга</p>
+      <h3 class="meta-service-title">Meta Ads консалтинг:<br><span>кабинет, аудит и заявки</span></h3>
+      <p class="meta-service-desc">Поможем собрать рекламную инфраструктуру Facebook / Instagram без хаоса: Business Manager, бизнес-профиль, рекламный аккаунт, доступы, пиксель, события и действующие кампании.</p>
+      <ul class="meta-service-list">
+        <li>Настройка Business Manager и рекламного аккаунта</li>
+        <li>Помощь с бизнес-профилем и регистрацией бизнеса в Meta</li>
+        <li>Аудит действующих кампаний, аудиторий и креативов</li>
+        <li>Проверка пикселя, событий, воронки и ROMI</li>
+      </ul>
+      <div class="meta-service-actions">
+        <a class="mini-cta" href="#contact">Получить аудит Meta Ads →</a>
+        <a class="mini-link" href="#diagnostic">Что проверяем</a>
+      </div>
+    </div>
+    <div class="meta-service-visual">
+      <img src="meta-ads-consulting.png" alt="Meta Ads консалтинг, аудит рекламного кабинета и аналитика кампаний">
+    </div>
   </div>
 
   <div class="services-grid">
@@ -2840,6 +3036,8 @@
       <label>Что хотите улучшить?
         <select name="task">
           <option>Реклама и заявки</option>
+          <option>Аудит рекламного кабинета</option>
+          <option>Помощь с рекламным кабинетом</option>
           <option>ROMI и аналитика</option>
           <option>Стратегия роста</option>
           <option>SMM и контент</option>
